@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { useQuery } from '@tanstack/react-query';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Separator } from '@/components/ui/separator';
 
 // Function to fetch products from API
 const fetchProducts = async () => {
@@ -33,6 +34,17 @@ const transformProductData = (products: any[]) => {
   }));
 };
 
+// Group products into sections of 4
+const groupProductsIntoSections = (products: any[], productsPerSection: number = 4) => {
+  const sections = [];
+  
+  for (let i = 0; i < products.length; i += productsPerSection) {
+    sections.push(products.slice(i, i + productsPerSection));
+  }
+  
+  return sections;
+};
+
 const ProductsSection = () => {
   const { t, language } = useLanguage();
   
@@ -43,6 +55,17 @@ const ProductsSection = () => {
     select: transformProductData,
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
+
+  // Group products into sections
+  const productSections = products ? groupProductsIntoSections(products) : [];
+  
+  // Section titles
+  const sectionTitles = [
+    t('products.section1'),
+    t('products.section2'),
+    t('products.section3'),
+    t('products.section4')
+  ];
 
   return (
     <section id="products" className="py-20">
@@ -68,45 +91,52 @@ const ProductsSection = () => {
           </div>
         )}
         
-        {!isLoading && !error && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" dir={language === 'ar' ? 'rtl' : 'ltr'}>
-            {products?.map((product, index) => (
-              <div 
-                key={product.id} 
-                className="reveal"
-                style={{ transitionDelay: `${index * 0.1}s` }}
-              >
-                <Card className="h-full flex flex-col border shadow-lg hover:shadow-xl transition-all duration-300">
-                  <div className="h-48 overflow-hidden">
-                    <img 
-                      src={product.image} 
-                      alt={product.name} 
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                      loading="lazy"
-                    />
-                  </div>
-                  <CardHeader>
-                    <CardTitle>{product.name}</CardTitle>
-                    <CardDescription>{product.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                    <ul className="list-disc list-inside space-y-1 text-gray-600">
-                      {product.features.map((feature, i) => (
-                        <li key={i}>{feature}</li>
-                      ))}
-                    </ul>
-                    <p className="text-2xl font-bold bg-gradient-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent mt-4">{product.price}</p>
-                  </CardContent>
-                  <CardFooter>
-                    <Button className="w-full bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white">
-                      {t('products.viewDetails')}
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </div>
-            ))}
+        {!isLoading && !error && productSections.map((section, sectionIndex) => (
+          <div key={sectionIndex} className="mb-16 last:mb-0">
+            <h3 className="text-2xl font-bold mb-6 text-gray-800 reveal">{sectionTitles[sectionIndex] || t('products.section', { number: sectionIndex + 1 })}</h3>
+            
+            <div 
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" 
+              dir={language === 'ar' ? 'rtl' : 'ltr'}
+            >
+              {section.map((product: any, index: number) => (
+                <div 
+                  key={product.id} 
+                  className="reveal"
+                  style={{ transitionDelay: `${index * 0.1}s` }}
+                >
+                  <Card className="h-full flex flex-col border shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div className="h-48 overflow-hidden">
+                      <img 
+                        src={product.image} 
+                        alt={product.name} 
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                        loading="lazy"
+                      />
+                    </div>
+                    <CardHeader>
+                      <CardTitle>{product.name}</CardTitle>
+                      <CardDescription>{product.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                      <ul className="list-disc list-inside space-y-1 text-gray-600">
+                        {product.features.map((feature: string, i: number) => (
+                          <li key={i}>{feature}</li>
+                        ))}
+                      </ul>
+                      <p className="text-2xl font-bold bg-gradient-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent mt-4">{product.price}</p>
+                    </CardContent>
+                    <CardFooter>
+                      <Button className="w-full bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white">
+                        {t('products.viewDetails')}
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </div>
+              ))}
+            </div>
           </div>
-        )}
+        ))}
       </div>
     </section>
   );

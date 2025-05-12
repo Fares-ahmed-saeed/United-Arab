@@ -173,33 +173,37 @@ const Navbar = () => {
         </Link>
         
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
-          {navItems.map((item) => (
-            <div key={item.key}>{item.render()}</div>
-          ))}
+        <div className="hidden md:flex items-center">
+          <div className="flex space-x-6">
+            {navItems.map((item) => (
+              <div key={item.key} className="px-2">{item.render()}</div>
+            ))}
+          </div>
           
-          <Button 
-            className="bg-brand-blue hover:bg-brand-blue-dark text-white"
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-              const event = e as unknown as React.MouseEvent<HTMLAnchorElement>;
-              if (isHomePage) {
-                smoothScroll(event, 'contact');
-              } else {
-                window.location.href = '/#contact';
-              }
-            }}
-          >
-            {t('nav.book')}
-          </Button>
-          
-          <button
-            onClick={toggleLanguage}
-            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-            aria-label="Toggle language"
-          >
-            <Globe size={20} className={`${isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'}`} />
-            <span className="sr-only">{language === 'en' ? 'العربية' : 'English'}</span>
-          </button>
+          <div className="ml-6 flex items-center space-x-4">
+            <Button 
+              className="bg-brand-blue hover:bg-brand-blue-dark text-white"
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                const event = e as unknown as React.MouseEvent<HTMLAnchorElement>;
+                if (isHomePage) {
+                  smoothScroll(event, 'contact');
+                } else {
+                  window.location.href = '/#contact';
+                }
+              }}
+            >
+              {t('nav.book')}
+            </Button>
+            
+            <button
+              onClick={toggleLanguage}
+              className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              aria-label="Toggle language"
+            >
+              <Globe size={20} className={`${isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'}`} />
+              <span className="sr-only">{language === 'en' ? 'العربية' : 'English'}</span>
+            </button>
+          </div>
         </div>
         
         {/* Mobile Menu Button */}

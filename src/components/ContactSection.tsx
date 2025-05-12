@@ -5,8 +5,10 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const ContactSection = () => {
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -46,26 +48,26 @@ const ContactSection = () => {
     <section id="contact" className="bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 reveal">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Contact Us</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('contact.title')}</h2>
           <div className="w-24 h-1 bg-brand-blue mx-auto mb-6"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Get in touch with our team for any inquiries or to schedule a service appointment.
+            {t('contact.subtitle')}
           </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start" dir={language === 'ar' ? 'rtl' : 'ltr'}>
           <div className="reveal">
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg">
               <div className="mb-6">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Name
+                  {t('contact.name')}
                 </label>
                 <Input
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Enter your name"
+                  placeholder={t('contact.placeholder.name')}
                   required
                   className="w-full"
                 />
@@ -73,7 +75,7 @@ const ContactSection = () => {
               
               <div className="mb-6">
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number
+                  {t('contact.phone')}
                 </label>
                 <Input
                   id="phone"
@@ -81,7 +83,7 @@ const ContactSection = () => {
                   type="tel"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="Enter your phone number"
+                  placeholder={t('contact.placeholder.phone')}
                   required
                   className="w-full"
                 />
@@ -89,14 +91,14 @@ const ContactSection = () => {
               
               <div className="mb-6">
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Message
+                  {t('contact.message')}
                 </label>
                 <Textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Tell us about your air conditioning needs"
+                  placeholder={t('contact.placeholder.message')}
                   required
                   className="w-full min-h-[120px]"
                 />
@@ -107,14 +109,14 @@ const ContactSection = () => {
                 className="w-full bg-brand-blue hover:bg-brand-blue-dark py-6" 
                 disabled={loading}
               >
-                {loading ? 'Sending...' : 'Send Message'}
+                {loading ? t('contact.sending') : t('contact.send')}
               </Button>
             </form>
           </div>
           
           <div className="reveal">
             <div className="bg-white p-8 rounded-lg shadow-lg h-full">
-              <h3 className="text-2xl font-bold mb-6">Get In Touch</h3>
+              <h3 className="text-2xl font-bold mb-6">{t('contact.getInTouch')}</h3>
               
               <div className="space-y-6">
                 <div className="flex items-start">
@@ -122,7 +124,7 @@ const ContactSection = () => {
                     <Phone className="h-6 w-6 text-brand-blue" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900">Phone</h4>
+                    <h4 className="font-medium text-gray-900">{t('contact.phone')}</h4>
                     <p className="text-gray-600">+123-456-7890</p>
                     <p className="text-gray-600">+123-456-7891</p>
                   </div>
@@ -133,7 +135,7 @@ const ContactSection = () => {
                     <Mail className="h-6 w-6 text-brand-blue" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900">Email</h4>
+                    <h4 className="font-medium text-gray-900">{t('contact.email')}</h4>
                     <p className="text-gray-600">info@arabunitedac.com</p>
                     <p className="text-gray-600">support@arabunitedac.com</p>
                   </div>
@@ -144,7 +146,7 @@ const ContactSection = () => {
                     <MapPin className="h-6 w-6 text-brand-blue" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900">Address</h4>
+                    <h4 className="font-medium text-gray-900">{t('contact.address')}</h4>
                     <p className="text-gray-600">123 Business Avenue, Suite 100</p>
                     <p className="text-gray-600">Dubai, United Arab Emirates</p>
                   </div>
@@ -152,14 +154,14 @@ const ContactSection = () => {
               </div>
               
               <div className="mt-8">
-                <h4 className="font-medium text-gray-900 mb-4">Business Hours</h4>
+                <h4 className="font-medium text-gray-900 mb-4">{t('contact.businessHours')}</h4>
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="text-gray-600">Monday - Friday:</div>
-                  <div className="text-gray-900">8:00 AM - 6:00 PM</div>
-                  <div className="text-gray-600">Saturday:</div>
-                  <div className="text-gray-900">9:00 AM - 4:00 PM</div>
-                  <div className="text-gray-600">Sunday:</div>
-                  <div className="text-gray-900">Closed</div>
+                  <div className="text-gray-600">{t('contact.weekdays')}</div>
+                  <div className="text-gray-900">{t('contact.weekdaysHours')}</div>
+                  <div className="text-gray-600">{t('contact.saturday')}</div>
+                  <div className="text-gray-900">{t('contact.saturdayHours')}</div>
+                  <div className="text-gray-600">{t('contact.sunday')}</div>
+                  <div className="text-gray-900">{t('contact.sundayHours')}</div>
                 </div>
               </div>
             </div>
