@@ -165,9 +165,9 @@ const Navbar = () => {
         <Link to="/" className="flex items-center">
           <h1 className={`font-bold text-2xl md:text-3xl ${isScrolled || !isHomePage ? 'text-brand-blue' : 'text-white'}`}>
             {language === 'en' ? (
-              <>Arab United <span className="hidden sm:inline">for Air Conditioning</span></>
+              <>United Arab <span className="hidden sm:inline">Air Conditioning</span></>
             ) : (
-              <>العرب المتحدة <span className="hidden sm:inline">لتكييف الهواء</span></>
+              <>العربية المتحدة <span className="hidden sm:inline">لتكييف الهواء</span></>
             )}
           </h1>
         </Link>

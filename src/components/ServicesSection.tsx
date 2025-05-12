@@ -1,19 +1,22 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Settings, BarChart3, ShieldCheck, Wind, Wrench, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 
 const ServicesSection = () => {
   const { t, language } = useLanguage();
-  
+  const [selectedService, setSelectedService] = useState<number | null>(null);
+
   const serviceItems = [
     {
       id: 1,
       title: t('services.installation'),
       description: t('services.installation.desc'),
+      details: t('services.installation.details'),
       icon: <Settings className="h-10 w-10 text-white mb-4" />,
       delay: '0s',
       iconBg: 'bg-cyan-500',
@@ -23,6 +26,7 @@ const ServicesSection = () => {
       id: 2,
       title: t('services.maintenance'),
       description: t('services.maintenance.desc'),
+      details: t('services.maintenance.details'),
       icon: <Wrench className="h-10 w-10 text-white mb-4" />,
       delay: '0.2s',
       iconBg: 'bg-green-500',
@@ -32,6 +36,7 @@ const ServicesSection = () => {
       id: 3,
       title: t('services.repair'),
       description: t('services.repair.desc'),
+      details: t('services.repair.details'),
       icon: <BarChart3 className="h-10 w-10 text-white mb-4" />,
       delay: '0.4s',
       iconBg: 'bg-yellow-500',
@@ -41,6 +46,7 @@ const ServicesSection = () => {
       id: 4,
       title: t('services.consultation'),
       description: t('services.consultation.desc'),
+      details: t('services.consultation.details'),
       icon: <Wind className="h-10 w-10 text-white mb-4" />,
       delay: '0.6s',
       iconBg: 'bg-purple-500',
@@ -50,6 +56,7 @@ const ServicesSection = () => {
       id: 5,
       title: t('services.sales'),
       description: t('services.sales.desc'),
+      details: t('services.sales.details'),
       icon: <ShoppingCart className="h-10 w-10 text-white mb-4" />,
       delay: '0.8s',
       iconBg: 'bg-pink-500',
@@ -59,12 +66,17 @@ const ServicesSection = () => {
       id: 6,
       title: t('services.warranty'),
       description: t('services.warranty.desc'),
+      details: t('services.warranty.details'),
       icon: <ShieldCheck className="h-10 w-10 text-white mb-4" />,
       delay: '1s',
       iconBg: 'bg-orange-500',
       cardBg: 'bg-gradient-to-br from-orange-500 to-orange-600'
     }
   ];
+
+  const getSelectedService = () => {
+    return serviceItems.find(service => service.id === selectedService);
+  };
 
   return (
     <section id="services" className="bg-gray-50">
@@ -80,7 +92,10 @@ const ServicesSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" dir={language === 'ar' ? 'rtl' : 'ltr'}>
           {serviceItems.map((service) => (
             <div key={service.id} className="reveal" style={{ transitionDelay: service.delay }}>
-              <Card className="h-full border-none shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+              <Card 
+                className="h-full border-none shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group cursor-pointer"
+                onClick={() => setSelectedService(service.id)}
+              >
                 <CardHeader className={`text-center relative overflow-hidden text-white ${service.cardBg}`}>
                   <div className="relative z-10 py-4">
                     <div className={`flex justify-center items-center w-20 h-20 ${service.iconBg} rounded-full mx-auto shadow-lg`}>
@@ -95,7 +110,7 @@ const ServicesSection = () => {
                   </CardDescription>
                   <div className="text-center">
                     <Button variant="ghost" className="text-cyan-600 hover:bg-cyan-50 hover:text-cyan-700">
-                      {t('services.learnMore')}
+                      {t('services.viewDetails')}
                     </Button>
                   </div>
                 </CardContent>
@@ -111,6 +126,27 @@ const ServicesSection = () => {
             </Button>
           </Link>
         </div>
+
+        <Dialog open={selectedService !== null} onOpenChange={() => setSelectedService(null)}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold">
+                {getSelectedService()?.title}
+              </DialogTitle>
+            </DialogHeader>
+            <DialogDescription className="text-base text-gray-600">
+              {getSelectedService()?.details}
+            </DialogDescription>
+            <DialogFooter dir={language === 'ar' ? 'rtl' : 'ltr'}>
+              <Button 
+                onClick={() => setSelectedService(null)}
+                className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white"
+              >
+                {t('services.close')}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );

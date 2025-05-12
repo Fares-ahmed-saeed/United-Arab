@@ -23,13 +23,13 @@ const HeroSection = () => {
   const getBgImage = () => {
     if (windowWidth <= 640) {
       // Mobile image (smaller size)
-      return "https://images.unsplash.com/photo-1606771218406-5b2b1b69ec1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80";
+      return "https://images.unsplash.com/photo-1628913296855-8757c622af62?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80";
     } else if (windowWidth <= 1024) {
       // Tablet image (medium size)
-      return "https://images.unsplash.com/photo-1613294326794-e7c74fe886e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1024&q=80";
+      return "https://images.unsplash.com/photo-1600520611035-84157ad4494d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1024&q=80";
     } else {
       // Desktop image (large size)
-      return "https://images.unsplash.com/photo-1598530593885-ff2e4ded75bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80";
+      return "https://images.unsplash.com/photo-1581275233124-a1d92edd66a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80";
     }
   };
 
