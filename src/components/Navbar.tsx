@@ -4,13 +4,14 @@ import { smoothScroll } from '@/utils/scrollUtils';
 import { Menu, X, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [language, setLanguage] = useState('en');
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const { language, setLanguage, t } = useLanguage();
   
   // Handle scroll event to change navbar appearance
   useEffect(() => {
@@ -39,7 +40,7 @@ const Navbar = () => {
   };
 
   const toggleLanguage = () => {
-    setLanguage(prev => prev === 'en' ? 'ar' : 'en');
+    setLanguage(language === 'en' ? 'ar' : 'en');
   };
 
   const renderHomePageLink = (label: string) => {
@@ -69,12 +70,12 @@ const Navbar = () => {
   const navItems = [
     { 
       key: 'home', 
-      label: language === 'en' ? 'Home' : 'الرئيسية',
-      render: () => renderHomePageLink(language === 'en' ? 'Home' : 'الرئيسية')
+      label: t('nav.home'),
+      render: () => renderHomePageLink(t('nav.home'))
     },
     {
       key: 'services',
-      label: language === 'en' ? 'Our Services' : 'خدماتنا',
+      label: t('nav.services'),
       render: () => isHomePage ? (
         <a
           href="#services"
@@ -83,20 +84,20 @@ const Navbar = () => {
             isScrolled ? 'text-gray-800' : 'text-white'
           } hover:text-brand-blue font-medium transition-colors`}
         >
-          {language === 'en' ? 'Our Services' : 'خدماتنا'}
+          {t('nav.services')}
         </a>
       ) : (
         <Link
           to="/#services"
           className="text-gray-800 hover:text-brand-blue font-medium transition-colors"
         >
-          {language === 'en' ? 'Our Services' : 'خدماتنا'}
+          {t('nav.services')}
         </Link>
       )
     },
     {
       key: 'products',
-      label: language === 'en' ? 'Products' : 'المنتجات',
+      label: t('nav.products'),
       render: () => (
         <Link
           to="/products"
@@ -104,13 +105,13 @@ const Navbar = () => {
             isScrolled ? 'text-gray-800' : 'text-white'
           } hover:text-brand-blue font-medium transition-colors`}
         >
-          {language === 'en' ? 'Products' : 'المنتجات'}
+          {t('nav.products')}
         </Link>
       )
     },
     {
       key: 'about',
-      label: language === 'en' ? 'About Us' : 'من نحن',
+      label: t('nav.about'),
       render: () => isHomePage ? (
         <a
           href="#about"
@@ -119,20 +120,20 @@ const Navbar = () => {
             isScrolled ? 'text-gray-800' : 'text-white'
           } hover:text-brand-blue font-medium transition-colors`}
         >
-          {language === 'en' ? 'About Us' : 'من نحن'}
+          {t('nav.about')}
         </a>
       ) : (
         <Link
           to="/#about"
           className="text-gray-800 hover:text-brand-blue font-medium transition-colors"
         >
-          {language === 'en' ? 'About Us' : 'من نحن'}
+          {t('nav.about')}
         </Link>
       )
     },
     {
       key: 'contact',
-      label: language === 'en' ? 'Contact' : 'اتصل بنا',
+      label: t('nav.contact'),
       render: () => isHomePage ? (
         <a
           href="#contact"
@@ -141,14 +142,14 @@ const Navbar = () => {
             isScrolled ? 'text-gray-800' : 'text-white'
           } hover:text-brand-blue font-medium transition-colors`}
         >
-          {language === 'en' ? 'Contact' : 'اتصل بنا'}
+          {t('nav.contact')}
         </a>
       ) : (
         <Link
           to="/#contact"
           className="text-gray-800 hover:text-brand-blue font-medium transition-colors"
         >
-          {language === 'en' ? 'Contact' : 'اتصل بنا'}
+          {t('nav.contact')}
         </Link>
       )
     }
@@ -178,7 +179,7 @@ const Navbar = () => {
           ))}
           
           <Button 
-            className="bg-brand-blue hover:bg-brand-blue-dark"
+            className="bg-brand-blue hover:bg-brand-blue-dark text-white"
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               const event = e as unknown as React.MouseEvent<HTMLAnchorElement>;
               if (isHomePage) {
@@ -188,7 +189,7 @@ const Navbar = () => {
               }
             }}
           >
-            {language === 'en' ? 'Book Now' : 'احجز الآن'}
+            {t('nav.book')}
           </Button>
           
           <button
@@ -196,7 +197,8 @@ const Navbar = () => {
             className="p-2 rounded-full hover:bg-gray-100 transition-colors"
             aria-label="Toggle language"
           >
-            <Globe size={20} className={isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'} />
+            <Globe size={20} className={`${isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'}`} />
+            <span className="sr-only">{language === 'en' ? 'العربية' : 'English'}</span>
           </button>
         </div>
         
@@ -207,7 +209,8 @@ const Navbar = () => {
             className="p-2 rounded-full hover:bg-gray-100 transition-colors"
             aria-label="Toggle language"
           >
-            <Globe size={20} className={isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'} />
+            <Globe size={20} className={`${isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'}`} />
+            <span className="sr-only">{language === 'en' ? 'العربية' : 'English'}</span>
           </button>
           
           <button 
@@ -246,7 +249,7 @@ const Navbar = () => {
               closeMobileMenu();
             }}
           >
-            {language === 'en' ? 'Book Now' : 'احجز الآن'}
+            {t('nav.book')}
           </Button>
         </div>
       </div>

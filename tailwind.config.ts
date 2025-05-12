@@ -63,11 +63,19 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors for Arab United AC
+				// Custom colors for Arab United AC with more vibrant options
 				"brand-blue": {
 					light: "#33C3F0",
 					DEFAULT: "#1EAEDB",
 					dark: "#0FA0CE"
+				},
+				"vibrant": {
+					purple: "#8B5CF6",
+					pink: "#D946EF",
+					orange: "#F97316",
+					blue: "#0EA5E9",
+					cyan: "#22D3EE",
+					green: "#10B981"
 				}
 			},
 			borderRadius: {
@@ -119,6 +127,14 @@ export default {
 						transform: 'translateX(0)',
 						opacity: '1'
 					}
+				},
+				'pulse-glow': {
+					'0%, 100%': { 
+						boxShadow: '0 0 15px rgba(59, 130, 246, 0.5)' 
+					},
+					'50%': { 
+						boxShadow: '0 0 25px rgba(59, 130, 246, 0.8)' 
+					}
 				}
 			},
 			animation: {
@@ -126,7 +142,8 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in-up': 'fade-in-up 0.7s ease-out',
 				'fade-in': 'fade-in 0.7s ease-out',
-				'slide-in-right': 'slide-in-right 0.5s ease-out'
+				'slide-in-right': 'slide-in-right 0.5s ease-out',
+				'pulse-glow': 'pulse-glow 2s infinite'
 			}
 		}
 	},
