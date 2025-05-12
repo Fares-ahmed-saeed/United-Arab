@@ -6,58 +6,148 @@ import { useQuery } from '@tanstack/react-query';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Separator } from '@/components/ui/separator';
 
-// Function to fetch products from API
-const fetchProducts = async () => {
-  // Using a free product API - this is a sample one
-  const response = await fetch('https://dummyjson.com/products/category/laptops');
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  const data = await response.json();
-  return data.products;
-};
-
-// Transform the API data to fit our needs
-const transformProductData = (products: any[]) => {
-  return products.map((product: any) => ({
-    id: product.id,
-    name: product.title,
-    description: product.description,
-    price: `$${product.price}`,
-    features: [
-      `${product.brand}`,
-      `${product.rating}/5 Rating`,
-      `${product.discountPercentage}% Discount`,
-      `Stock: ${product.stock}`
-    ],
-    image: product.thumbnail
-  }));
-};
-
-// Group products into sections of 4
-const groupProductsIntoSections = (products: any[], productsPerSection: number = 4) => {
-  const sections = [];
-  
-  for (let i = 0; i < products.length; i += productsPerSection) {
-    sections.push(products.slice(i, i + productsPerSection));
-  }
-  
-  return sections;
+// Sample air conditioner products for each section
+const sampleProducts = {
+  section1: [
+    {
+      id: 1,
+      name: "Split AC Model S-101",
+      description: "Energy efficient split air conditioner for small rooms",
+      price: "$499",
+      features: ["18,000 BTU", "Energy Star Rated", "Sleep Mode", "Remote Control"],
+      image: "https://images.unsplash.com/photo-1628913296855-8757c622af62?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+    },
+    {
+      id: 2,
+      name: "Split AC Model S-202",
+      description: "Powerful cooling for medium-sized rooms with air purifier",
+      price: "$649",
+      features: ["24,000 BTU", "HEPA Filter", "Smart Control", "Low Noise"],
+      image: "https://images.unsplash.com/photo-1600520611035-84157ad4494d?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+    },
+    {
+      id: 3,
+      name: "Split AC Model S-303",
+      description: "Premium inverter split AC for large living rooms",
+      price: "$799",
+      features: ["30,000 BTU", "Inverter Technology", "WiFi Control", "4-Way Air Flow"],
+      image: "https://images.unsplash.com/photo-1581275233124-a1d92edd66a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+    },
+    {
+      id: 4,
+      name: "Split AC Model S-404",
+      description: "Ultra silent split AC with advanced filtration system",
+      price: "$899",
+      features: ["24,000 BTU", "20dB Silent Mode", "Anti-bacterial Filter", "Motion Sensor"],
+      image: "https://cdn.pixabay.com/photo/2017/08/24/03/41/air-conditioner-2675559_960_720.jpg"
+    }
+  ],
+  section2: [
+    {
+      id: 5,
+      name: "Central AC System C-100",
+      description: "Whole-house cooling solution with zoning capabilities",
+      price: "$2,499",
+      features: ["60,000 BTU", "Multi-zone Control", "High SEER Rating", "Smart Thermostat"],
+      image: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+    },
+    {
+      id: 6,
+      name: "Central AC System C-200",
+      description: "Advanced ducted system with humidity control",
+      price: "$3,299",
+      features: ["72,000 BTU", "Humidity Control", "HEPA Filtration", "Quiet Operation"],
+      image: "https://images.unsplash.com/photo-1504176910849-16a1790reporter.jpg?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+    },
+    {
+      id: 7,
+      name: "Central AC System C-300",
+      description: "Commercial-grade central air conditioning with zone control",
+      price: "$4,199",
+      features: ["120,000 BTU", "8-Zone Control", "Commercial Grade", "Energy Management"],
+      image: "https://cdn.pixabay.com/photo/2016/11/23/15/04/air-conditioning-1853596_960_720.jpg"
+    },
+    {
+      id: 8,
+      name: "Central AC System C-400",
+      description: "High-efficiency central system with air purification",
+      price: "$3,799",
+      features: ["90,000 BTU", "21 SEER Rating", "UV Air Purifier", "Variable Speed Fan"],
+      image: "https://cdn.pixabay.com/photo/2020/04/28/01/42/ceiling-5102822_960_720.jpg"
+    }
+  ],
+  section3: [
+    {
+      id: 9,
+      name: "Portable AC Model P-100",
+      description: "Compact portable air conditioner for small spaces",
+      price: "$349",
+      features: ["10,000 BTU", "Easy Installation", "Remote Control", "Dehumidifier"],
+      image: "https://images.unsplash.com/photo-1599732494971-f8cef4b7ccce?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+    },
+    {
+      id: 10,
+      name: "Portable AC Model P-200",
+      description: "Mid-size portable unit with smart features",
+      price: "$449",
+      features: ["12,000 BTU", "WiFi Control", "Programmable Timer", "Low Noise"],
+      image: "https://cdn.pixabay.com/photo/2020/05/07/13/05/air-conditioner-5140647_960_720.jpg"
+    },
+    {
+      id: 11,
+      name: "Portable AC Model P-300",
+      description: "High-capacity portable AC for larger rooms",
+      price: "$549",
+      features: ["14,000 BTU", "Three Cooling Speeds", "Auto-Evaporation", "Sleep Mode"],
+      image: "https://cdn.pixabay.com/photo/2018/09/01/22/22/air-conditioner-3647998_960_720.jpg"
+    },
+    {
+      id: 12,
+      name: "Portable AC Model P-400",
+      description: "Premium dual-hose portable air conditioner",
+      price: "$649",
+      features: ["14,000 BTU", "Dual Hose Design", "Digital Control", "Heating Function"],
+      image: "https://cdn.pixabay.com/photo/2018/07/05/22/22/portable-air-conditioner-3519318_960_720.jpg"
+    }
+  ],
+  section4: [
+    {
+      id: 13,
+      name: "Energy Saver Model E-100",
+      description: "Ultra-efficient inverter AC with lowest power consumption",
+      price: "$899",
+      features: ["12,000 BTU", "28 SEER Rating", "Solar Compatible", "Eco Mode"],
+      image: "https://images.unsplash.com/photo-1543674892-8f7c7ce61394?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+    },
+    {
+      id: 14,
+      name: "Energy Saver Model E-200",
+      description: "Smart eco-friendly split AC with consumption tracking",
+      price: "$1,099",
+      features: ["18,000 BTU", "Energy Tracking App", "R-32 Refrigerant", "Load Sensing"],
+      image: "https://cdn.pixabay.com/photo/2017/04/10/14/54/air-conditioning-2218756_960_720.jpg"
+    },
+    {
+      id: 15,
+      name: "Energy Saver Model E-300",
+      description: "Premium efficiency central AC for whole-house cooling",
+      price: "$2,899",
+      features: ["48,000 BTU", "26 SEER Rating", "Variable Speed", "Smart Zoning"],
+      image: "https://cdn.pixabay.com/photo/2017/08/01/09/34/air-conditioner-2563621_960_720.jpg"
+    },
+    {
+      id: 16,
+      name: "Energy Saver Model E-400",
+      description: "Solar-assisted hybrid cooling system",
+      price: "$3,499",
+      features: ["36,000 BTU", "Solar Panel Integration", "Hybrid Technology", "Smart Grid Ready"],
+      image: "https://cdn.pixabay.com/photo/2018/10/05/14/01/cooling-3726493_960_720.jpg"
+    }
+  ]
 };
 
 const ProductsSection = () => {
   const { t, language } = useLanguage();
-  
-  // Fetch products using React Query
-  const { data: products, isLoading, error } = useQuery({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-    select: transformProductData,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
-
-  // Group products into sections
-  const productSections = products ? groupProductsIntoSections(products) : [];
   
   // Section titles
   const sectionTitles = [
@@ -78,28 +168,15 @@ const ProductsSection = () => {
           </p>
         </div>
         
-        {isLoading && (
-          <div className="flex justify-center items-center py-16">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500"></div>
-            <p className="ml-4 text-lg text-gray-600">{t('products.loading')}</p>
-          </div>
-        )}
-        
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg text-center mx-auto max-w-2xl">
-            <p>{t('products.error')}</p>
-          </div>
-        )}
-        
-        {!isLoading && !error && productSections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className="mb-16 last:mb-0">
-            <h3 className="text-2xl font-bold mb-6 text-gray-800 reveal">{sectionTitles[sectionIndex] || t('products.section', { number: sectionIndex + 1 })}</h3>
+        {Object.keys(sampleProducts).map((sectionKey, sectionIndex) => (
+          <div key={sectionKey} className="mb-16 last:mb-0">
+            <h3 className="text-2xl font-bold mb-6 text-gray-800 reveal">{sectionTitles[sectionIndex]}</h3>
             
             <div 
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" 
               dir={language === 'ar' ? 'rtl' : 'ltr'}
             >
-              {section.map((product: any, index: number) => (
+              {sampleProducts[sectionKey as keyof typeof sampleProducts].map((product: any, index: number) => (
                 <div 
                   key={product.id} 
                   className="reveal"

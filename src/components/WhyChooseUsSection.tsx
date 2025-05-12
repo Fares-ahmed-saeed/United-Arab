@@ -9,22 +9,28 @@ const WhyChooseUsSection = () => {
   const features = [
     {
       id: 1,
-      title: 'Quality Service',
-      description: 'We use only top-grade materials and equipment for all our installations and repairs.',
+      title: language === 'en' ? 'Quality Service' : 'خدمة ذات جودة',
+      description: language === 'en' ? 
+        'We use only top-grade materials and equipment for all our installations and repairs.' : 
+        'نستخدم فقط مواد ومعدات عالية الجودة لجميع التركيبات والإصلاحات لدينا.',
       icon: <Star className="h-12 w-12 text-brand-blue" />,
       delay: '0s'
     },
     {
       id: 2,
-      title: 'Fast Response',
-      description: 'Our team responds quickly to service calls with prompt and efficient solutions.',
+      title: language === 'en' ? 'Fast Response' : 'استجابة سريعة',
+      description: language === 'en' ? 
+        'Our team responds quickly to service calls with prompt and efficient solutions.' : 
+        'يستجيب فريقنا بسرعة لمكالمات الخدمة مع حلول سريعة وفعالة.',
       icon: <Clock className="h-12 w-12 text-brand-blue" />,
       delay: '0.2s'
     },
     {
       id: 3,
-      title: '24/7 Technical Support',
-      description: 'Our technical support team is available round the clock to assist with any issues.',
+      title: language === 'en' ? '24/7 Technical Support' : 'دعم فني على مدار الساعة',
+      description: language === 'en' ? 
+        'Our technical support team is available round the clock to assist with any issues.' : 
+        'فريق الدعم الفني لدينا متاح على مدار الساعة للمساعدة في أي مشكلة.',
       icon: <HeadphonesIcon className="h-12 w-12 text-brand-blue" />,
       delay: '0.4s'
     }

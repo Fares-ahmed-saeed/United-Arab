@@ -19,17 +19,17 @@ const HeroSection = () => {
     };
   }, []);
 
-  // Adaptive image selection based on screen width
+  // Adaptive air conditioner image selection based on screen width
   const getBgImage = () => {
     if (windowWidth <= 640) {
       // Mobile image (smaller size)
-      return "https://images.unsplash.com/photo-1628913296855-8757c622af62?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80";
+      return "https://cdn.pixabay.com/photo/2017/08/24/03/41/air-conditioner-2675559_960_720.jpg";
     } else if (windowWidth <= 1024) {
       // Tablet image (medium size)
-      return "https://images.unsplash.com/photo-1600520611035-84157ad4494d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1024&q=80";
+      return "https://cdn.pixabay.com/photo/2017/04/10/14/54/air-conditioning-2218756_960_720.jpg";
     } else {
       // Desktop image (large size)
-      return "https://images.unsplash.com/photo-1581275233124-a1d92edd66a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80";
+      return "https://cdn.pixabay.com/photo/2018/07/05/22/22/portable-air-conditioner-3519318_960_720.jpg";
     }
   };
 
@@ -38,14 +38,14 @@ const HeroSection = () => {
       id="home" 
       className="min-h-screen relative flex items-center justify-center overflow-hidden"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("${getBgImage()}")`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url("${getBgImage()}")`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
       }}
     >
       <div className="absolute inset-0">
         <video 
-          className="w-full h-full object-cover opacity-40" 
+          className="w-full h-full object-cover opacity-30" 
           autoPlay 
           muted 
           loop 

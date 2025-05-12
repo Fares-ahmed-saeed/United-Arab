@@ -87,7 +87,7 @@ const translations = {
     'contact.send': 'Send Message',
     'contact.sending': 'Sending...',
     'contact.getInTouch': 'Get In Touch',
-    'contact.phone': 'Phone',
+    'contact.phoneLabel': 'Phone',
     'contact.email': 'Email',
     'contact.address': 'Address',
     'contact.businessHours': 'Business Hours',
@@ -175,7 +175,7 @@ const translations = {
     'contact.send': 'إرسال الرسالة',
     'contact.sending': 'جاري الإرسال...',
     'contact.getInTouch': 'تواصل معنا',
-    'contact.phone': 'الهاتف',
+    'contact.phoneLabel': 'الهاتف',
     'contact.email': 'البريد الإلكتروني',
     'contact.address': 'العنوان',
     'contact.businessHours': 'ساعات العمل',
@@ -191,7 +191,8 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('en');
+  // Change default language to Arabic
+  const [language, setLanguage] = useState<Language>('ar');
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations[typeof language]] || key;
