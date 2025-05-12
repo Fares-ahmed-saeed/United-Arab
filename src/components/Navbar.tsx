@@ -1,12 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { smoothScroll } from '@/utils/scrollUtils';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [language, setLanguage] = useState('en');
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
   
   // Handle scroll event to change navbar appearance
   useEffect(() => {
@@ -19,6 +23,7 @@ const Navbar = () => {
     };
     
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -33,72 +38,215 @@ const Navbar = () => {
     setMobileMenuOpen(false);
   };
 
+  const toggleLanguage = () => {
+    setLanguage(prev => prev === 'en' ? 'ar' : 'en');
+  };
+
+  const renderHomePageLink = (label: string) => {
+    if (isHomePage) {
+      return (
+        <a
+          href="#home"
+          onClick={(e) => smoothScroll(e, 'home')}
+          className={`${
+            isScrolled ? 'text-gray-800' : 'text-white'
+          } hover:text-brand-blue font-medium transition-colors`}
+        >
+          {label}
+        </a>
+      );
+    }
+    return (
+      <Link
+        to="/"
+        className="text-gray-800 hover:text-brand-blue font-medium transition-colors"
+      >
+        {label}
+      </Link>
+    );
+  };
+
+  const navItems = [
+    { 
+      key: 'home', 
+      label: language === 'en' ? 'Home' : 'الرئيسية',
+      render: () => renderHomePageLink(language === 'en' ? 'Home' : 'الرئيسية')
+    },
+    {
+      key: 'services',
+      label: language === 'en' ? 'Our Services' : 'خدماتنا',
+      render: () => isHomePage ? (
+        <a
+          href="#services"
+          onClick={(e) => smoothScroll(e, 'services')}
+          className={`${
+            isScrolled ? 'text-gray-800' : 'text-white'
+          } hover:text-brand-blue font-medium transition-colors`}
+        >
+          {language === 'en' ? 'Our Services' : 'خدماتنا'}
+        </a>
+      ) : (
+        <Link
+          to="/#services"
+          className="text-gray-800 hover:text-brand-blue font-medium transition-colors"
+        >
+          {language === 'en' ? 'Our Services' : 'خدماتنا'}
+        </Link>
+      )
+    },
+    {
+      key: 'products',
+      label: language === 'en' ? 'Products' : 'المنتجات',
+      render: () => (
+        <Link
+          to="/products"
+          className={`${
+            isScrolled ? 'text-gray-800' : 'text-white'
+          } hover:text-brand-blue font-medium transition-colors`}
+        >
+          {language === 'en' ? 'Products' : 'المنتجات'}
+        </Link>
+      )
+    },
+    {
+      key: 'about',
+      label: language === 'en' ? 'About Us' : 'من نحن',
+      render: () => isHomePage ? (
+        <a
+          href="#about"
+          onClick={(e) => smoothScroll(e, 'about')}
+          className={`${
+            isScrolled ? 'text-gray-800' : 'text-white'
+          } hover:text-brand-blue font-medium transition-colors`}
+        >
+          {language === 'en' ? 'About Us' : 'من نحن'}
+        </a>
+      ) : (
+        <Link
+          to="/#about"
+          className="text-gray-800 hover:text-brand-blue font-medium transition-colors"
+        >
+          {language === 'en' ? 'About Us' : 'من نحن'}
+        </Link>
+      )
+    },
+    {
+      key: 'contact',
+      label: language === 'en' ? 'Contact' : 'اتصل بنا',
+      render: () => isHomePage ? (
+        <a
+          href="#contact"
+          onClick={(e) => smoothScroll(e, 'contact')}
+          className={`${
+            isScrolled ? 'text-gray-800' : 'text-white'
+          } hover:text-brand-blue font-medium transition-colors`}
+        >
+          {language === 'en' ? 'Contact' : 'اتصل بنا'}
+        </a>
+      ) : (
+        <Link
+          to="/#contact"
+          className="text-gray-800 hover:text-brand-blue font-medium transition-colors"
+        >
+          {language === 'en' ? 'Contact' : 'اتصل بنا'}
+        </Link>
+      )
+    }
+  ];
+
   return (
     <nav 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
+        isScrolled || !isHomePage ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <a href="#home" className="flex items-center" onClick={(e) => smoothScroll(e, 'home')}>
-          <h1 className={`font-bold text-2xl md:text-3xl ${isScrolled ? 'text-brand-blue' : 'text-white'}`}>
-            Arab United <span className="hidden sm:inline">for Air Conditioning</span>
+        <Link to="/" className="flex items-center">
+          <h1 className={`font-bold text-2xl md:text-3xl ${isScrolled || !isHomePage ? 'text-brand-blue' : 'text-white'}`}>
+            {language === 'en' ? (
+              <>Arab United <span className="hidden sm:inline">for Air Conditioning</span></>
+            ) : (
+              <>العرب المتحدة <span className="hidden sm:inline">لتكييف الهواء</span></>
+            )}
           </h1>
-        </a>
+        </Link>
         
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-8">
-          {['home', 'services', 'about', 'contact'].map((item) => (
-            <a
-              key={item}
-              href={`#${item}`}
-              onClick={(e) => smoothScroll(e, item)}
-              className={`${
-                isScrolled ? 'text-gray-800' : 'text-white'
-              } hover:text-brand-blue font-medium transition-colors`}
-            >
-              {item === 'home' ? 'Home' : 
-               item === 'services' ? 'Our Services' : 
-               item === 'about' ? 'About Us' : 'Contact'}
-            </a>
+        <div className="hidden md:flex items-center space-x-8">
+          {navItems.map((item) => (
+            <div key={item.key}>{item.render()}</div>
           ))}
-          <Button className="bg-brand-blue hover:bg-brand-blue-dark">
-            Book Now
+          
+          <Button 
+            className="bg-brand-blue hover:bg-brand-blue-dark"
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              const event = e as unknown as React.MouseEvent<HTMLAnchorElement>;
+              if (isHomePage) {
+                smoothScroll(event, 'contact');
+              } else {
+                window.location.href = '/#contact';
+              }
+            }}
+          >
+            {language === 'en' ? 'Book Now' : 'احجز الآن'}
           </Button>
+          
+          <button
+            onClick={toggleLanguage}
+            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+            aria-label="Toggle language"
+          >
+            <Globe size={20} className={isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'} />
+          </button>
         </div>
         
         {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-brand-blue focus:outline-none" 
-          onClick={toggleMobileMenu}
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center space-x-4">
+          <button
+            onClick={toggleLanguage}
+            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+            aria-label="Toggle language"
+          >
+            <Globe size={20} className={isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'} />
+          </button>
+          
+          <button 
+            className={`focus:outline-none ${isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'}`}
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
       
       {/* Mobile Navigation */}
       <div className={`md:hidden transition-all duration-300 ease-in-out ${
-        mobileMenuOpen ? 'max-h-64 opacity-100 visible' : 'max-h-0 opacity-0 invisible'
+        mobileMenuOpen ? 'max-h-96 opacity-100 visible' : 'max-h-0 opacity-0 invisible'
       } bg-white overflow-hidden`}>
         <div className="container mx-auto px-4 py-2 flex flex-col space-y-4">
-          {['home', 'services', 'about', 'contact'].map((item) => (
-            <a
-              key={item}
-              href={`#${item}`}
-              onClick={(e) => {
-                smoothScroll(e, item);
-                closeMobileMenu();
-              }}
-              className="text-gray-800 hover:text-brand-blue py-2 font-medium"
+          {navItems.map((item) => (
+            <div 
+              key={item.key} 
+              className="py-2"
+              onClick={closeMobileMenu}
             >
-              {item === 'home' ? 'Home' : 
-               item === 'services' ? 'Our Services' : 
-               item === 'about' ? 'About Us' : 'Contact'}
-            </a>
+              {item.render()}
+            </div>
           ))}
-          <Button className="bg-brand-blue hover:bg-brand-blue-dark w-full">
-            Book Now
+          <Button 
+            className="bg-brand-blue hover:bg-brand-blue-dark w-full"
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              const event = e as unknown as React.MouseEvent<HTMLAnchorElement>;
+              if (isHomePage) {
+                smoothScroll(event, 'contact');
+              } else {
+                window.location.href = '/#contact';
+              }
+              closeMobileMenu();
+            }}
+          >
+            {language === 'en' ? 'Book Now' : 'احجز الآن'}
           </Button>
         </div>
       </div>

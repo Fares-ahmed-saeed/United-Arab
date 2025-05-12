@@ -85,6 +85,7 @@
   }
 }
 
+/* Basic reveal animation */
 .reveal {
   opacity: 0;
   transform: translateY(20px);
@@ -94,4 +95,77 @@
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Float animation */
+.float-animation {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 1.5s ease;
+}
+
+.float-animation.float-active {
+  opacity: 1;
+  transform: translateY(0);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Pulse animation */
+.pulse-animation {
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.pulse-animation.pulse-active {
+  opacity: 1;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Fade and slide animation */
+.fade-slide {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.8s ease;
+}
+
+.fade-slide.fade-slide-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* RTL support for Arabic */
+[dir="rtl"] .fade-slide {
+  transform: translateX(30px);
+}
+
+[dir="rtl"] .fade-slide.fade-slide-active {
+  transform: translateX(0);
+}
+
+/* Language transition */
+.lang-fade-enter {
+  opacity: 0;
+}
+.lang-fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.lang-fade-exit {
+  opacity: 1;
+}
+.lang-fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
 }
