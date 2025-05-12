@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Settings, BarChart3, ShieldCheck, Wind, Tools, ShoppingCart } from 'lucide-react';
+import { Settings, BarChart3, ShieldCheck, Wind, Wrench, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ const serviceItems = [
     id: 2,
     title: 'Maintenance',
     description: 'Regular maintenance and repair services to keep your air conditioning systems running efficiently.',
-    icon: <Tools className="h-10 w-10 text-brand-blue mb-4" />,
+    icon: <Wrench className="h-10 w-10 text-brand-blue mb-4" />,
     delay: '0.2s',
     iconBg: 'bg-green-50'
   },
