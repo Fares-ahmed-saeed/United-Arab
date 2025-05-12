@@ -5,7 +5,7 @@ import { smoothScroll } from '@/utils/scrollUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const HeroSection = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -22,14 +22,14 @@ const HeroSection = () => {
   // Adaptive air conditioner image selection based on screen width
   const getBgImage = () => {
     if (windowWidth <= 640) {
-      // Mobile image (smaller size)
-      return "https://cdn.pixabay.com/photo/2017/08/24/03/41/air-conditioner-2675559_960_720.jpg";
+      // Mobile image (higher quality air conditioner)
+      return "https://images.unsplash.com/photo-1581775759333-13356072f642?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80";
     } else if (windowWidth <= 1024) {
-      // Tablet image (medium size)
-      return "https://cdn.pixabay.com/photo/2017/04/10/14/54/air-conditioning-2218756_960_720.jpg";
+      // Tablet image (medium size image of modern AC)
+      return "https://images.unsplash.com/photo-1629168879499-ea7c572ae8c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80";
     } else {
-      // Desktop image (large size)
-      return "https://cdn.pixabay.com/photo/2018/07/05/22/22/portable-air-conditioner-3519318_960_720.jpg";
+      // Desktop image (large size luxury AC installation)
+      return "https://images.unsplash.com/photo-1558449028-b53a39d100fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80";
     }
   };
 
@@ -38,7 +38,7 @@ const HeroSection = () => {
       id="home" 
       className="min-h-screen relative flex items-center justify-center overflow-hidden"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url("${getBgImage()}")`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url("${getBgImage()}")`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
       }}

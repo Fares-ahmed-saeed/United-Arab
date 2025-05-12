@@ -191,7 +191,7 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  // Change default language to Arabic
+  // Set default language to Arabic
   const [language, setLanguage] = useState<Language>('ar');
 
   const t = (key: string): string => {
