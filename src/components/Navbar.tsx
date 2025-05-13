@@ -1,136 +1,263 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Calculator } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { useIsMobile } from '@/hooks/use-mobile';
+
+import React, { useState, useEffect } from 'react';
+import { smoothScroll } from '@/utils/scrollUtils';
+import { Menu, X, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import ThemeToggle from './ThemeToggle';
+import { Link, useLocation } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { language, changeLanguage, t } = useLanguage();
-  const isMobile = useIsMobile();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const isHomePage = location.pathname === '/';
+  const { language, setLanguage, t } = useLanguage();
   
-  // Close mobile menu when resizing to desktop
+  // Handle scroll event to change navbar appearance
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768) {
-        setIsOpen(false);
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
       }
     };
     
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
-  // Active link style
-  const activeLinkClass = "text-primary font-medium";
-  const normalLinkClass = "text-foreground/80 hover:text-primary transition-colors";
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'ar' : 'en');
+  };
+
+  const renderHomePageLink = (label: string) => {
+    if (isHomePage) {
+      return (
+        <a
+          href="#home"
+          onClick={(e) => smoothScroll(e, 'home')}
+          className={`${
+            isScrolled ? 'text-gray-800' : 'text-white'
+          } hover:text-brand-blue font-medium transition-colors`}
+        >
+          {label}
+        </a>
+      );
+    }
+    return (
+      <Link
+        to="/"
+        className="text-gray-800 hover:text-brand-blue font-medium transition-colors"
+      >
+        {label}
+      </Link>
+    );
+  };
+
+  const navItems = [
+    { 
+      key: 'home', 
+      label: t('nav.home'),
+      render: () => renderHomePageLink(t('nav.home'))
+    },
+    {
+      key: 'services',
+      label: t('nav.services'),
+      render: () => isHomePage ? (
+        <a
+          href="#services"
+          onClick={(e) => smoothScroll(e, 'services')}
+          className={`${
+            isScrolled ? 'text-gray-800' : 'text-white'
+          } hover:text-brand-blue font-medium transition-colors`}
+        >
+          {t('nav.services')}
+        </a>
+      ) : (
+        <Link
+          to="/#services"
+          className="text-gray-800 hover:text-brand-blue font-medium transition-colors"
+        >
+          {t('nav.services')}
+        </Link>
+      )
+    },
+    {
+      key: 'products',
+      label: t('nav.products'),
+      render: () => (
+        <Link
+          to="/products"
+          className={`${
+            isScrolled ? 'text-gray-800' : 'text-white'
+          } hover:text-brand-blue font-medium transition-colors`}
+        >
+          {t('nav.products')}
+        </Link>
+      )
+    },
+    {
+      key: 'about',
+      label: t('nav.about'),
+      render: () => isHomePage ? (
+        <a
+          href="#about"
+          onClick={(e) => smoothScroll(e, 'about')}
+          className={`${
+            isScrolled ? 'text-gray-800' : 'text-white'
+          } hover:text-brand-blue font-medium transition-colors`}
+        >
+          {t('nav.about')}
+        </a>
+      ) : (
+        <Link
+          to="/#about"
+          className="text-gray-800 hover:text-brand-blue font-medium transition-colors"
+        >
+          {t('nav.about')}
+        </Link>
+      )
+    },
+    {
+      key: 'contact',
+      label: t('nav.contact'),
+      render: () => isHomePage ? (
+        <a
+          href="#contact"
+          onClick={(e) => smoothScroll(e, 'contact')}
+          className={`${
+            isScrolled ? 'text-gray-800' : 'text-white'
+          } hover:text-brand-blue font-medium transition-colors`}
+        >
+          {t('nav.contact')}
+        </a>
+      ) : (
+        <Link
+          to="/#contact"
+          className="text-gray-800 hover:text-brand-blue font-medium transition-colors"
+        >
+          {t('nav.contact')}
+        </Link>
+      )
+    }
+  ];
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-lg bg-background/80 border-b border-border/40">
-      <nav className="container flex items-center justify-between h-16 mx-auto px-4">
-        <div className="flex items-center">
-          <Link to="/" className="flex items-center mr-6">
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-blue to-brand-blue-light">
-              Arab United AC
-            </span>
-          </Link>
-        </div>
-
+    <nav 
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled || !isHomePage ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
+      }`}
+    >
+      <div className="container mx-auto px-4 flex justify-between items-center">
+        <Link to="/" className="flex items-center">
+          <h1 className={`font-bold text-2xl md:text-3xl ${isScrolled || !isHomePage ? 'text-brand-blue' : 'text-white'}`}>
+            {language === 'en' ? (
+              <>United Arab <span className="hidden sm:inline">Air Conditioning</span></>
+            ) : (
+              <>العربية المتحدة <span className="hidden sm:inline">لتكييف الهواء</span></>
+            )}
+          </h1>
+        </Link>
+        
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center justify-between flex-1">
-          <div className="flex items-center space-x-6">
-            <Link 
-              to="/" 
-              className={location.pathname === '/' ? activeLinkClass : normalLinkClass}
-            >
-              {t('home')}
-            </Link>
-            <Link 
-              to="/products" 
-              className={location.pathname === '/products' ? activeLinkClass : normalLinkClass}
-            >
-              {t('products')}
-            </Link>
-            <Link 
-              to="/calculator" 
-              className={location.pathname === '/calculator' ? activeLinkClass : normalLinkClass}
-            >
-              <div className="flex items-center gap-1">
-                <Calculator className="h-4 w-4" />
-                {t('ac_calculator')}
-              </div>
-            </Link>
+        <div className="hidden md:flex items-center">
+          <div className="flex space-x-6">
+            {navItems.map((item) => (
+              <div key={item.key} className="px-2">{item.render()}</div>
+            ))}
           </div>
           
-          <div className="flex items-center space-x-3">
-            <ThemeToggle />
+          <div className="ml-6 flex items-center space-x-4">
             <Button 
-              variant="ghost"
-              onClick={() => changeLanguage(language === 'en' ? 'ar' : 'en')}
-              className="text-sm"
+              className="bg-brand-blue hover:bg-brand-blue-dark text-white"
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                const event = e as unknown as React.MouseEvent<HTMLAnchorElement>;
+                if (isHomePage) {
+                  smoothScroll(event, 'contact');
+                } else {
+                  window.location.href = '/#contact';
+                }
+              }}
             >
-              {language === 'en' ? 'العربية' : 'English'}
+              {t('nav.book')}
             </Button>
+            
+            <button
+              onClick={toggleLanguage}
+              className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              aria-label="Toggle language"
+            >
+              <Globe size={20} className={`${isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'}`} />
+              <span className="sr-only">{language === 'en' ? 'العربية' : 'English'}</span>
+            </button>
           </div>
         </div>
-
-        {/* Mobile Navigation Button */}
-        <div className="flex items-center gap-2 md:hidden">
-          <ThemeToggle />
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? "Close Menu" : "Open Menu"}
+        
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center space-x-4">
+          <button
+            onClick={toggleLanguage}
+            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+            aria-label="Toggle language"
           >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            <Globe size={20} className={`${isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'}`} />
+            <span className="sr-only">{language === 'en' ? 'العربية' : 'English'}</span>
+          </button>
+          
+          <button 
+            className={`focus:outline-none ${isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'}`}
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+      
+      {/* Mobile Navigation */}
+      <div className={`md:hidden transition-all duration-300 ease-in-out ${
+        mobileMenuOpen ? 'max-h-96 opacity-100 visible' : 'max-h-0 opacity-0 invisible'
+      } bg-white overflow-hidden`}>
+        <div className="container mx-auto px-4 py-2 flex flex-col space-y-4">
+          {navItems.map((item) => (
+            <div 
+              key={item.key} 
+              className="py-2"
+              onClick={closeMobileMenu}
+            >
+              {item.render()}
+            </div>
+          ))}
+          <Button 
+            className="bg-brand-blue hover:bg-brand-blue-dark w-full"
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              const event = e as unknown as React.MouseEvent<HTMLAnchorElement>;
+              if (isHomePage) {
+                smoothScroll(event, 'contact');
+              } else {
+                window.location.href = '/#contact';
+              }
+              closeMobileMenu();
+            }}
+          >
+            {t('nav.book')}
           </Button>
         </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      {isOpen && isMobile && (
-        <div className="fixed inset-0 top-16 z-40 backdrop-blur-lg bg-background/95 flex flex-col p-4 space-y-4 transition-all duration-200 ease-in-out animate-in fade-in slide-in-from-top">
-          <Link 
-            to="/" 
-            onClick={() => setIsOpen(false)} 
-            className={`text-lg py-2 ${location.pathname === '/' ? activeLinkClass : normalLinkClass}`}
-          >
-            {t('home')}
-          </Link>
-          <Link 
-            to="/products" 
-            onClick={() => setIsOpen(false)} 
-            className={`text-lg py-2 ${location.pathname === '/products' ? activeLinkClass : normalLinkClass}`}
-          >
-            {t('products')}
-          </Link>
-          <Link 
-            to="/calculator" 
-            onClick={() => setIsOpen(false)} 
-            className={`text-lg py-2 flex items-center gap-2 ${location.pathname === '/calculator' ? activeLinkClass : normalLinkClass}`}
-          >
-            <Calculator className="h-4 w-4" />
-            {t('ac_calculator')}
-          </Link>
-          <div className="pt-4 border-t border-border/60">
-            <Button 
-              onClick={() => {
-                changeLanguage(language === 'en' ? 'ar' : 'en');
-                setIsOpen(false);
-              }}
-              variant="outline"
-              className="w-full"
-            >
-              {language === 'en' ? 'العربية' : 'English'}
-            </Button>
-          </div>
-        </div>
-      )}
-    </header>
+      </div>
+    </nav>
   );
 };
 
