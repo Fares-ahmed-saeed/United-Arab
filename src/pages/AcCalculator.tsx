@@ -34,12 +34,12 @@ const AcCalculator = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      roomLength: "",
-      roomWidth: "",
-      ceilingHeight: "",
+      roomLength: 0,
+      roomWidth: 0,
+      ceilingHeight: 0,
       roomType: "bedroom",
       sunExposure: "medium",
-      peopleCount: "1",
+      peopleCount: 1,
       insulation: "average",
     },
   });
