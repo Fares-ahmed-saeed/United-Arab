@@ -5,7 +5,6 @@ import HeroSection from '@/components/HeroSection';
 import ServicesSection from '@/components/ServicesSection';
 import WhyChooseUsSection from '@/components/WhyChooseUsSection';
 import ContactSection from '@/components/ContactSection';
-import Footer from '@/components/Footer';
 import { initScrollAnimations } from '@/utils/scrollUtils';
 
 const Index = () => {
@@ -24,7 +23,6 @@ const Index = () => {
       <ServicesSection />
       <WhyChooseUsSection />
       <ContactSection />
-      <Footer />
     </div>
   );
 };

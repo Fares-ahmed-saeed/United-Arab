@@ -53,12 +53,12 @@ const HeroSection = () => {
         >
           <source src="https://cdn.coverr.co/videos/coverr-air-conditioning-system-2602/1080p.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/60 via-blue-900/60 to-cyan-900/60"></div>
       </div>
       
       <div className="container mx-auto px-4 text-center z-10">
         <div className="float-animation">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-violet-400 to-purple-500 bg-clip-text text-transparent animate-pulse-glow">
             {t('hero.title')}
           </h1>
         </div>
@@ -70,7 +70,7 @@ const HeroSection = () => {
         <div className="flex flex-col sm:flex-row justify-center gap-4 float-animation" style={{ transitionDelay: '0.4s' }}>
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white px-8 py-6 text-lg pulse-animation shadow-lg hover:shadow-xl transition-all duration-300"
+            className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-white/20 backdrop-blur-sm"
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               const event = e as unknown as React.MouseEvent<HTMLAnchorElement>;
               smoothScroll(event, 'contact');
@@ -81,7 +81,7 @@ const HeroSection = () => {
           <Button 
             size="lg" 
             variant="outline" 
-            className="bg-transparent border-2 border-white text-white hover:bg-white/20 px-8 py-6 text-lg"
+            className="bg-transparent border-2 border-white text-white hover:bg-white/20 px-8 py-6 text-lg hover:scale-105 transition-all"
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               const event = e as unknown as React.MouseEvent<HTMLAnchorElement>;
               smoothScroll(event, 'services');
@@ -94,25 +94,25 @@ const HeroSection = () => {
         <div className="mt-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
             <div className="fade-slide" style={{ transitionDelay: '0.6s' }}>
-              <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+              <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:shadow-lg hover:border-white/30 transition-all hover:scale-105">
                 <h3 className="text-white text-2xl font-bold">10+</h3>
                 <p className="text-white/80">{t('hero.experience')}</p>
               </div>
             </div>
             <div className="fade-slide" style={{ transitionDelay: '0.8s' }}>
-              <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+              <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:shadow-lg hover:border-white/30 transition-all hover:scale-105">
                 <h3 className="text-white text-2xl font-bold">500+</h3>
                 <p className="text-white/80">{t('hero.projects')}</p>
               </div>
             </div>
             <div className="fade-slide" style={{ transitionDelay: '1.0s' }}>
-              <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+              <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:shadow-lg hover:border-white/30 transition-all hover:scale-105">
                 <h3 className="text-white text-2xl font-bold">24/7</h3>
                 <p className="text-white/80">{t('hero.support')}</p>
               </div>
             </div>
             <div className="fade-slide" style={{ transitionDelay: '1.2s' }}>
-              <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+              <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:shadow-lg hover:border-white/30 transition-all hover:scale-105">
                 <h3 className="text-white text-2xl font-bold">100%</h3>
                 <p className="text-white/80">{t('hero.satisfaction')}</p>
               </div>
@@ -127,7 +127,7 @@ const HeroSection = () => {
             const event = e as unknown as React.MouseEvent<HTMLAnchorElement>;
             smoothScroll(event, 'services');
           }}
-          className="animate-bounce p-2 rounded-full bg-white/30 hover:bg-white/50 transition-colors"
+          className="animate-bounce p-3 rounded-full bg-gradient-to-r from-cyan-500/50 to-purple-600/50 hover:from-cyan-500/70 hover:to-purple-600/70 transition-all backdrop-blur-sm border border-white/20 shadow-lg"
           aria-label="Scroll to services"
         >
           <svg 

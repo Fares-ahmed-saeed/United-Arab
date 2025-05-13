@@ -19,8 +19,8 @@ const ServicesSection = () => {
       details: t('services.installation.details'),
       icon: <Settings className="h-10 w-10 text-white mb-4" />,
       delay: '0s',
-      iconBg: 'bg-cyan-500',
-      cardBg: 'bg-gradient-to-br from-cyan-500 to-cyan-600'
+      iconBg: 'bg-gradient-to-br from-cyan-500 to-blue-600',
+      cardBg: 'bg-gradient-to-br from-cyan-500 to-cyan-700'
     },
     {
       id: 2,
@@ -29,8 +29,8 @@ const ServicesSection = () => {
       details: t('services.maintenance.details'),
       icon: <Wrench className="h-10 w-10 text-white mb-4" />,
       delay: '0.2s',
-      iconBg: 'bg-green-500',
-      cardBg: 'bg-gradient-to-br from-green-500 to-green-600'
+      iconBg: 'bg-gradient-to-br from-green-400 to-green-600',
+      cardBg: 'bg-gradient-to-br from-green-500 to-green-700'
     },
     {
       id: 3,
@@ -39,8 +39,8 @@ const ServicesSection = () => {
       details: t('services.repair.details'),
       icon: <BarChart3 className="h-10 w-10 text-white mb-4" />,
       delay: '0.4s',
-      iconBg: 'bg-yellow-500',
-      cardBg: 'bg-gradient-to-br from-yellow-500 to-yellow-600'
+      iconBg: 'bg-gradient-to-br from-yellow-400 to-yellow-600',
+      cardBg: 'bg-gradient-to-br from-yellow-500 to-yellow-700'
     },
     {
       id: 4,
@@ -49,8 +49,8 @@ const ServicesSection = () => {
       details: t('services.consultation.details'),
       icon: <Wind className="h-10 w-10 text-white mb-4" />,
       delay: '0.6s',
-      iconBg: 'bg-purple-500',
-      cardBg: 'bg-gradient-to-br from-purple-500 to-purple-600'
+      iconBg: 'bg-gradient-to-br from-purple-400 to-purple-600',
+      cardBg: 'bg-gradient-to-br from-purple-500 to-purple-700'
     },
     {
       id: 5,
@@ -59,8 +59,8 @@ const ServicesSection = () => {
       details: t('services.sales.details'),
       icon: <ShoppingCart className="h-10 w-10 text-white mb-4" />,
       delay: '0.8s',
-      iconBg: 'bg-pink-500',
-      cardBg: 'bg-gradient-to-br from-pink-500 to-pink-600'
+      iconBg: 'bg-gradient-to-br from-pink-400 to-pink-600',
+      cardBg: 'bg-gradient-to-br from-pink-500 to-pink-700'
     },
     {
       id: 6,
@@ -69,8 +69,8 @@ const ServicesSection = () => {
       details: t('services.warranty.details'),
       icon: <ShieldCheck className="h-10 w-10 text-white mb-4" />,
       delay: '1s',
-      iconBg: 'bg-orange-500',
-      cardBg: 'bg-gradient-to-br from-orange-500 to-orange-600'
+      iconBg: 'bg-gradient-to-br from-orange-400 to-orange-600',
+      cardBg: 'bg-gradient-to-br from-orange-500 to-orange-700'
     }
   ];
 
@@ -79,10 +79,12 @@ const ServicesSection = () => {
   };
 
   return (
-    <section id="services" className="bg-gray-50">
+    <section id="services" className="bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 reveal">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">{t('services.title')}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            {t('services.title')}
+          </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-cyan-500 to-purple-600 mx-auto mb-6"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             {t('services.subtitle')}
@@ -93,23 +95,23 @@ const ServicesSection = () => {
           {serviceItems.map((service) => (
             <div key={service.id} className="reveal" style={{ transitionDelay: service.delay }}>
               <Card 
-                className="h-full border-none shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group cursor-pointer"
+                className="h-full border-none shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group cursor-pointer hover:scale-105 transition-transform"
                 onClick={() => setSelectedService(service.id)}
               >
                 <CardHeader className={`text-center relative overflow-hidden text-white ${service.cardBg}`}>
                   <div className="relative z-10 py-4">
-                    <div className={`flex justify-center items-center w-20 h-20 ${service.iconBg} rounded-full mx-auto shadow-lg`}>
+                    <div className={`flex justify-center items-center w-20 h-20 ${service.iconBg} rounded-full mx-auto shadow-lg border border-white/20`}>
                       {service.icon}
                     </div>
                     <CardTitle className="text-2xl mt-4 text-white">{service.title}</CardTitle>
                   </div>
                 </CardHeader>
-                <CardContent className="pt-6">
+                <CardContent className="pt-6 bg-gradient-to-b from-white to-gray-50">
                   <CardDescription className="text-base text-gray-600 mb-6">
                     {service.description}
                   </CardDescription>
                   <div className="text-center">
-                    <Button variant="ghost" className="text-cyan-600 hover:bg-cyan-50 hover:text-cyan-700">
+                    <Button variant="ghost" className="text-cyan-600 hover:bg-cyan-50 hover:text-cyan-700 font-semibold">
                       {t('services.viewDetails')}
                     </Button>
                   </div>
@@ -121,16 +123,16 @@ const ServicesSection = () => {
         
         <div className="mt-16 text-center reveal">
           <Link to="/products">
-            <Button className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white px-8 shadow-lg hover:shadow-xl transition-all duration-300">
+            <Button className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 border border-white/10 hover:scale-105">
               {t('services.viewProducts')}
             </Button>
           </Link>
         </div>
 
         <Dialog open={selectedService !== null} onOpenChange={() => setSelectedService(null)}>
-          <DialogContent className="sm:max-w-md">
+          <DialogContent className="sm:max-w-md bg-gradient-to-b from-white to-gray-50">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold">
+              <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 {getSelectedService()?.title}
               </DialogTitle>
             </DialogHeader>
