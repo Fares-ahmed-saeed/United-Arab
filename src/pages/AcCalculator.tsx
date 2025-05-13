@@ -83,10 +83,10 @@ const AcCalculator = () => {
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-10">
             <h1 className="text-4xl font-bold text-brand-blue mb-4">
-              {t("acCalculator.title") || "AC Size Calculator"}
+              {t("acCalculator.title")}
             </h1>
             <p className="text-lg text-gray-600">
-              {t("acCalculator.description") || "Find the right air conditioning capacity for your space"}
+              {t("acCalculator.description")}
             </p>
           </div>
           
@@ -96,10 +96,10 @@ const AcCalculator = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Calculator className="text-brand-blue" />
-                    {t("acCalculator.formTitle") || "Room Details"}
+                    {t("acCalculator.formTitle")}
                   </CardTitle>
                   <CardDescription>
-                    {t("acCalculator.formDescription") || "Enter your room details to calculate the recommended AC capacity"}
+                    {t("acCalculator.formDescription")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -112,7 +112,7 @@ const AcCalculator = () => {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>
-                                {t("acCalculator.roomSize") || "Room Size (m²)"}
+                                {t("acCalculator.roomSize")}
                               </FormLabel>
                               <FormControl>
                                 <Input type="number" {...field} />
@@ -128,7 +128,7 @@ const AcCalculator = () => {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>
-                                {t("acCalculator.ceilingHeight") || "Ceiling Height (m)"}
+                                {t("acCalculator.ceilingHeight")}
                               </FormLabel>
                               <FormControl>
                                 <Input type="number" step="0.1" {...field} />
@@ -144,7 +144,7 @@ const AcCalculator = () => {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>
-                                {t("acCalculator.windowsCount") || "Number of Windows"}
+                                {t("acCalculator.windowsCount")}
                               </FormLabel>
                               <FormControl>
                                 <Input type="number" {...field} />
@@ -160,7 +160,7 @@ const AcCalculator = () => {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>
-                                {t("acCalculator.occupants") || "Number of Occupants"}
+                                {t("acCalculator.occupants")}
                               </FormLabel>
                               <FormControl>
                                 <Input type="number" {...field} />
@@ -175,7 +175,7 @@ const AcCalculator = () => {
                         type="submit" 
                         className="w-full bg-brand-blue hover:bg-brand-blue-dark"
                       >
-                        {t("acCalculator.calculate") || "Calculate BTU"}
+                        {t("acCalculator.calculate")}
                       </Button>
                     </form>
                   </Form>
@@ -188,7 +188,7 @@ const AcCalculator = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Thermometer className="text-brand-blue" />
-                    {t("acCalculator.resultTitle") || "Recommended AC Size"}
+                    {t("acCalculator.resultTitle")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center justify-center h-full">
@@ -204,20 +204,20 @@ const AcCalculator = () => {
                         {acSize}
                       </div>
                       <p className="text-sm text-gray-500">
-                        {t("acCalculator.recommendation") || "Based on your room specifications"}
+                        {t("acCalculator.recommendation")}
                       </p>
                     </div>
                   ) : (
                     <div className="text-center text-gray-500">
                       <AirVent size={60} className="mx-auto mb-4 opacity-50" />
                       <p>
-                        {t("acCalculator.noResult") || "Enter your room details and click Calculate to see the recommended AC size"}
+                        {t("acCalculator.noResult")}
                       </p>
                     </div>
                   )}
                 </CardContent>
                 <CardFooter className="text-xs text-gray-500 text-center">
-                  {t("acCalculator.disclaimer") || "This is an estimate. Consult with our professionals for an exact calculation."}
+                  {t("acCalculator.disclaimer")}
                 </CardFooter>
               </Card>
             </div>
@@ -227,18 +227,18 @@ const AcCalculator = () => {
             <Card>
               <CardHeader>
                 <CardTitle>
-                  {t("acCalculator.infoTitle") || "Why Proper AC Sizing Matters"}
+                  {t("acCalculator.infoTitle")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="mb-4">
-                  {t("acCalculator.infoParagraph1") || "An oversized air conditioner will cycle on and off too frequently, leading to poor humidity control and unnecessary wear on the equipment."}
+                  {t("acCalculator.infoParagraph1")}
                 </p>
                 <p className="mb-4">
-                  {t("acCalculator.infoParagraph2") || "An undersized unit will run continuously without adequately cooling your space, resulting in higher energy bills and decreased comfort."}
+                  {t("acCalculator.infoParagraph2")}
                 </p>
                 <p>
-                  {t("acCalculator.infoParagraph3") || "Our professionals can provide a precise calculation that factors in additional variables such as insulation quality, local climate, and shading."}
+                  {t("acCalculator.infoParagraph3")}
                 </p>
               </CardContent>
             </Card>

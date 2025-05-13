@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 type Language = 'en' | 'ar';
@@ -97,6 +96,26 @@ const translations = {
     'contact.saturdayHours': '9:00 AM - 4:00 PM',
     'contact.sunday': 'Sunday:',
     'contact.sundayHours': 'Closed',
+
+    // AC Calculator Section
+    'acCalculator.title': 'AC Size Calculator',
+    'acCalculator.description': 'Find the right air conditioning capacity for your space',
+    'acCalculator.formTitle': 'Room Details',
+    'acCalculator.formDescription': 'Enter your room details to calculate the recommended AC capacity',
+    'acCalculator.roomSize': 'Room Size (m²)',
+    'acCalculator.ceilingHeight': 'Ceiling Height (m)',
+    'acCalculator.windowsCount': 'Number of Windows',
+    'acCalculator.occupants': 'Number of Occupants',
+    'acCalculator.calculate': 'Calculate BTU',
+    'acCalculator.resultTitle': 'Recommended AC Size',
+    'acCalculator.noResult': 'Enter your room details and click Calculate to see the recommended AC size',
+    'acCalculator.recommendation': 'Based on your room specifications',
+    'acCalculator.disclaimer': 'This is an estimate. Consult with our professionals for an exact calculation.',
+    'acCalculator.infoTitle': 'Why Proper AC Sizing Matters',
+    'acCalculator.infoParagraph1': 'An oversized air conditioner will cycle on and off too frequently, leading to poor humidity control and unnecessary wear on the equipment.',
+    'acCalculator.infoParagraph2': 'An undersized unit will run continuously without adequately cooling your space, resulting in higher energy bills and decreased comfort.',
+    'acCalculator.infoParagraph3': 'Our professionals can provide a precise calculation that factors in additional variables such as insulation quality, local climate, and shading.',
+    'nav.calculator': 'AC Calculator',
   },
   ar: {
     // Navigation
@@ -185,6 +204,26 @@ const translations = {
     'contact.saturdayHours': '9:00 صباحًا - 4:00 مساءً',
     'contact.sunday': 'الأحد:',
     'contact.sundayHours': 'مغلق',
+
+    // AC Calculator Section
+    'acCalculator.title': 'حاسبة حجم مكيف الهواء',
+    'acCalculator.description': 'اعثر على سعة تكييف الهواء المناسبة لمساحتك',
+    'acCalculator.formTitle': 'تفاصيل الغرفة',
+    'acCalculator.formDescription': 'أدخل تفاصيل غرفتك لحساب سعة تكييف الهواء الموصى بها',
+    'acCalculator.roomSize': 'حجم الغرفة (م²)',
+    'acCalculator.ceilingHeight': 'ارتفاع السقف (م)',
+    'acCalculator.windowsCount': 'عدد النوافذ',
+    'acCalculator.occupants': 'عدد الأشخاص',
+    'acCalculator.calculate': 'حساب BTU',
+    'acCalculator.resultTitle': 'حجم المكيف الموصى به',
+    'acCalculator.noResult': 'أدخل تفاصيل غرفتك وانقر على حساب لرؤية حجم المكيف الموصى به',
+    'acCalculator.recommendation': 'بناءً على مواصفات غرفتك',
+    'acCalculator.disclaimer': 'هذا تقدير. استشر المتخصصين لدينا للحصول على حساب دقيق.',
+    'acCalculator.infoTitle': 'لماذا الحجم المناسب لمكيف الهواء مهم',
+    'acCalculator.infoParagraph1': 'مكيف الهواء كبير الحجم سيعمل بشكل متقطع كثيرًا، مما يؤدي إلى ضعف التحكم في الرطوبة وتآكل غير ضروري للجهاز.',
+    'acCalculator.infoParagraph2': 'الوحدة صغيرة الحجم ستعمل باستمرار دون تبريد مساحتك بشكل كافٍ، مما يؤدي إلى ارتفاع فواتير الطاقة وانخفاض الراحة.',
+    'acCalculator.infoParagraph3': 'يمكن للمتخصصين لدينا تقديم حساب دقيق يراعي متغيرات إضافية مثل جودة العزل والمناخ المحلي والتظليل.',
+    'nav.calculator': 'حاسبة التكييف',
   }
 };
 
