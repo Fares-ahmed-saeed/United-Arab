@@ -1,16 +1,15 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Calculator } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { language, changeLanguage, t } = useLanguage();
-  const { isMobile } = useMobile();
+  const isMobile = useIsMobile();
   const location = useLocation();
   
   // Close mobile menu when resizing to desktop
