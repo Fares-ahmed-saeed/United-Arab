@@ -7,9 +7,11 @@ import WhyChooseUsSection from '@/components/WhyChooseUsSection';
 import ContactSection from '@/components/ContactSection';
 import { initScrollAnimations } from '@/utils/scrollUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const Index = () => {
   const { language } = useLanguage();
+  const { theme } = useTheme();
   
   // Initialize scroll animations when the component mounts
   useEffect(() => {

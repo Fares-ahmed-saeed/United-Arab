@@ -1,216 +1,155 @@
+import React, { createContext, useContext, useState, useCallback } from 'react';
 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+// Define the available languages
+export type Language = 'en' | 'ar';
 
-type Language = 'en' | 'ar';
+// Translations
+const translations = {
+  en: {
+    // Existing translations
+    home: 'Home',
+    products: 'Products',
+    contact_us: 'Contact Us',
+    services: 'Services',
+    why_choose_us: 'Why Choose Us',
+    send_message: 'Send Message',
+    // Air Conditioner Calculator
+    ac_calculator: 'AC Calculator',
+    ac_calculator_title: 'Air Conditioning BTU Calculator',
+    ac_calculator_subtitle: 'Find the Right Air Conditioner Size',
+    ac_calculator_description: 'Use this calculator to determine the appropriate air conditioning capacity (BTU) needed for your room or space.',
+    room_length: 'Room Length',
+    room_width: 'Room Width',
+    ceiling_height: 'Ceiling Height',
+    room_type: 'Room Type',
+    select_room_type: 'Select room type',
+    bedroom: 'Bedroom',
+    living_room: 'Living Room',
+    kitchen: 'Kitchen',
+    office: 'Office',
+    sun_exposure: 'Sun Exposure',
+    select_sun_exposure: 'Select sun exposure',
+    sun_low: 'Low (Shaded/North Facing)',
+    sun_medium: 'Medium (East/West Facing)',
+    sun_high: 'High (Direct Sun/South Facing)',
+    people_count: 'Number of People',
+    insulation_quality: 'Insulation Quality',
+    select_insulation: 'Select insulation quality',
+    insulation_poor: 'Poor',
+    insulation_average: 'Average',
+    insulation_good: 'Good',
+    insulation_description: 'How well insulated is your room?',
+    calculate_btu: 'Calculate BTU',
+    results: 'Recommended Capacity',
+    btu_recommendation_note: 'This is an estimate. For professional sizing, please consult with our specialists.',
+    ac_size_small: 'Small AC unit (5,000-8,000 BTU)',
+    ac_size_medium: 'Medium AC unit (9,000-12,000 BTU)',
+    ac_size_large: 'Large AC unit (14,000-18,000 BTU)',
+    ac_size_xlarge: 'Extra Large AC unit (21,000-24,000 BTU)',
+    ac_size_multiple: 'Multiple units or central system recommended',
+    calculation_complete: 'Calculation Complete',
+    btu_calculated: 'BTU requirement calculated successfully',
+    calculation_error: 'Calculation Error',
+    please_check_values: 'Please check your input values',
+    // Dark mode
+    switch_to_dark_mode: 'Switch to Dark Mode',
+    switch_to_light_mode: 'Switch to Light Mode',
+  },
+  ar: {
+    // Existing translations
+    home: 'الرئيسية',
+    products: 'المنتجات',
+    contact_us: 'اتصل بنا',
+    services: 'خدماتنا',
+    why_choose_us: 'لماذا تختارنا',
+    send_message: 'إرسال رسالة',
+    // Air Conditioner Calculator
+    ac_calculator: 'حاسبة التكييف',
+    ac_calculator_title: 'حاسبة وحدات حرارية بريطانية (BTU) للتكييف',
+    ac_calculator_subtitle: 'ابحث عن حجم مكيف الهواء المناسب',
+    ac_calculator_description: 'استخدم هذه الحاسبة لتحديد سعة تكييف الهواء المناسبة (BTU) اللازمة لغرفتك أو مساحتك.',
+    room_length: 'طول الغرفة',
+    room_width: 'عرض الغرفة',
+    ceiling_height: 'ارتفاع السقف',
+    room_type: 'نوع الغرفة',
+    select_room_type: 'اختر نوع الغرفة',
+    bedroom: 'غرفة نوم',
+    living_room: 'غرفة معيشة',
+    kitchen: 'مطبخ',
+    office: 'مكتب',
+    sun_exposure: 'التعرض للشمس',
+    select_sun_exposure: 'حدد التعرض للشمس',
+    sun_low: 'منخفض (مظلل/مواجه للشمال)',
+    sun_medium: 'متوسط (مواجه للشرق/الغرب)',
+    sun_high: 'عالي (شمس مباشرة/مواجه للجنوب)',
+    people_count: 'عدد الأشخاص',
+    insulation_quality: 'جودة العزل',
+    select_insulation: 'حدد جودة العزل',
+    insulation_poor: 'ضعيف',
+    insulation_average: 'متوسط',
+    insulation_good: 'جيد',
+    insulation_description: 'ما مدى عزل غرفتك؟',
+    calculate_btu: 'حساب BTU',
+    results: 'السعة الموصى بها',
+    btu_recommendation_note: 'هذا تقدير. للحصول على الحجم المهني، يرجى استشارة المتخصصين لدينا.',
+    ac_size_small: 'وحدة تكييف صغيرة (5,000-8,000 BTU)',
+    ac_size_medium: 'وحدة تكييف متوسطة (9,000-12,000 BTU)',
+    ac_size_large: 'وحدة تكييف كبيرة (14,000-18,000 BTU)',
+    ac_size_xlarge: 'وحدة تكييف كبيرة جداً (21,000-24,000 BTU)',
+    ac_size_multiple: 'ينصح بوحدات متعددة أو نظام مركزي',
+    calculation_complete: 'اكتمل الحساب',
+    btu_calculated: 'تم حساب متطلبات BTU بنجاح',
+    calculation_error: 'خطأ في الحساب',
+    please_check_values: 'يرجى التحقق من قيم الإدخال الخاصة بك',
+    // Dark mode
+    switch_to_dark_mode: 'التبديل إلى الوضع المظلم',
+    switch_to_light_mode: 'التبديل إلى الوضع المضيء',
+  }
+};
 
-interface LanguageContextType {
+// Create the context type
+export interface LanguageContextValue {
   language: Language;
-  setLanguage: (lang: Language) => void;
+  changeLanguage: (lang: Language) => void;
   t: (key: string) => string;
 }
 
-const translations = {
-  en: {
-    // Navigation
-    'nav.home': 'Home',
-    'nav.services': 'Our Services',
-    'nav.products': 'Products',
-    'nav.about': 'About Us',
-    'nav.contact': 'Contact',
-    'nav.book': 'Book Now',
-    
-    // Hero Section
-    'hero.title': 'Expert Air Conditioning Solutions',
-    'hero.subtitle': 'Installation, maintenance, and sales services for all your HVAC needs',
-    'hero.book': 'Book Now',
-    'hero.services': 'Our Services',
-    'hero.experience': 'Years Experience',
-    'hero.projects': 'Projects',
-    'hero.support': 'Support',
-    'hero.satisfaction': 'Satisfaction',
-    
-    // Services Section
-    'services.title': 'Our Services',
-    'services.subtitle': 'We provide comprehensive air conditioning solutions for residential and commercial properties.',
-    'services.installation': 'Installation',
-    'services.installation.desc': 'Professional installation of all brands and types of air conditioning units for homes and businesses.',
-    'services.installation.details': 'Our team of certified technicians provides seamless installation of air conditioning units for both residential and commercial properties. We ensure proper sizing, optimal placement, and energy-efficient setup to maximize comfort and minimize operational costs.',
-    'services.maintenance': 'Maintenance',
-    'services.maintenance.desc': 'Regular maintenance and repair services to keep your air conditioning systems running efficiently.',
-    'services.maintenance.details': 'Regular maintenance is essential to extend the life of your AC system and reduce energy costs. Our maintenance program includes cleaning or replacing filters, checking refrigerant levels, inspecting components, and ensuring optimal performance year-round.',
-    'services.repair': 'Repair',
-    'services.repair.desc': 'Fast and reliable repair services for all types of air conditioning systems when they break down.',
-    'services.repair.details': 'Our emergency repair service is available 24/7. Our experienced technicians can quickly diagnose and fix issues with all major brands and models of air conditioning systems. We maintain a full inventory of parts to ensure prompt repairs.',
-    'services.consultation': 'Consultation',
-    'services.consultation.desc': 'Expert advice on selecting the right cooling solutions for your specific needs and budget.',
-    'services.consultation.details': 'Our consultation services help you make informed decisions about your HVAC needs. We assess your space, usage patterns, and budget to recommend the most efficient and cost-effective cooling solutions for your home or business.',
-    'services.sales': 'Sales',
-    'services.sales.desc': 'Wide selection of top-quality air conditioning units and components at competitive prices.',
-    'services.sales.details': 'We offer a comprehensive selection of energy-efficient air conditioning systems from leading manufacturers. Our sales team can help you choose the perfect unit based on your cooling requirements, space limitations, and budget considerations.',
-    'services.warranty': 'Warranty',
-    'services.warranty.desc': 'Comprehensive warranty coverage on all our installations and products for your peace of mind.',
-    'services.warranty.details': 'All of our installations come with extensive warranty coverage. We also honor manufacturer warranties and offer extended warranty options for additional peace of mind. Our service agreements provide priority scheduling and discounted rates on maintenance and repairs.',
-    'services.learnMore': 'Learn More',
-    'services.viewProducts': 'View Our Products',
-    'services.viewDetails': 'View Details',
-    'services.close': 'Close',
-    
-    // Products Section
-    'products.title': 'Our Products',
-    'products.subtitle': 'Explore our range of high-quality air conditioning systems for residential and commercial use.',
-    'products.viewDetails': 'View Details',
-    'products.loading': 'Loading products...',
-    'products.error': 'Error loading products. Please try again later.',
-    'products.section1': 'Split Air Conditioners',
-    'products.section2': 'Central Air Conditioning',
-    'products.section3': 'Portable Air Conditioners',
-    'products.section4': 'Energy Efficient Models',
-    'products.section': 'Section {number}',
-    
-    // About Us Section
-    'about.title': 'About Us',
-    'about.subtitle': 'Learn about our company and our commitment to quality service.',
-    'about.experience': 'Years Experience',
-    'about.projects': 'Projects Completed',
-    'about.satisfaction': 'Satisfaction',
-    'about.service': 'Service',
-    
-    // Contact Section
-    'contact.title': 'Contact Us',
-    'contact.subtitle': 'Get in touch with our team for any inquiries or to schedule a service appointment.',
-    'contact.name': 'Full Name',
-    'contact.phone': 'Phone Number',
-    'contact.message': 'Message',
-    'contact.placeholder.name': 'Enter your name',
-    'contact.placeholder.phone': 'Enter your phone number',
-    'contact.placeholder.message': 'Tell us about your air conditioning needs',
-    'contact.send': 'Send Message',
-    'contact.sending': 'Sending...',
-    'contact.getInTouch': 'Get In Touch',
-    'contact.phoneLabel': 'Phone',
-    'contact.email': 'Email',
-    'contact.address': 'Address',
-    'contact.businessHours': 'Business Hours',
-    'contact.weekdays': 'Monday - Friday:',
-    'contact.weekdaysHours': '8:00 AM - 6:00 PM',
-    'contact.saturday': 'Saturday:',
-    'contact.saturdayHours': '9:00 AM - 4:00 PM',
-    'contact.sunday': 'Sunday:',
-    'contact.sundayHours': 'Closed',
-  },
-  ar: {
-    // Navigation
-    'nav.home': 'الرئيسية',
-    'nav.services': 'خدماتنا',
-    'nav.products': 'المنتجات',
-    'nav.about': 'من نحن',
-    'nav.contact': 'اتصل بنا',
-    'nav.book': 'احجز الآن',
-    
-    // Hero Section
-    'hero.title': 'حلول تكييف الهواء المتخصصة',
-    'hero.subtitle': 'خدمات التركيب والصيانة والمبيعات لجميع احتياجات التدفئة والتهوية وتكييف الهواء',
-    'hero.book': 'احجز الآن',
-    'hero.services': 'خدماتنا',
-    'hero.experience': 'سنوات الخبرة',
-    'hero.projects': 'المشاريع',
-    'hero.support': 'الدعم',
-    'hero.satisfaction': 'رضا العملاء',
-    
-    // Services Section
-    'services.title': 'خدماتنا',
-    'services.subtitle': 'نقدم حلول تكييف الهواء الشاملة للعقارات السكنية والتجارية.',
-    'services.installation': 'التركيب',
-    'services.installation.desc': 'تركيب احترافي لجميع العلامات التجارية وأنواع وحدات تكييف الهواء للمنازل والشركات.',
-    'services.installation.details': 'يقدم فريقنا من الفنيين المعتمدين تركيبًا سلسًا لوحدات تكييف الهواء للعقارات السكنية والتجارية. نضمن الحجم المناسب، والموضع الأمثل، والإعداد الموفر للطاقة لزيادة الراحة وتقليل تكاليف التشغيل.',
-    'services.maintenance': 'الصيانة',
-    'services.maintenance.desc': 'خدمات الصيانة والإصلاح الدورية للحفاظ على أنظمة تكييف الهواء تعمل بكفاءة.',
-    'services.maintenance.details': 'الصيانة المنتظمة ضرورية لإطالة عمر نظام التكييف وتقليل تكاليف الطاقة. يتضمن برنامج الصيانة لدينا تنظيف أو استبدال الفلاتر، وفحص مستويات المبرد، وفحص المكونات، وضمان الأداء الأمثل على مدار العام.',
-    'services.repair': 'الإصلاح',
-    'services.repair.desc': 'خدمات إصلاح سريعة وموثوقة لجميع أنواع أنظمة تكييف الهواء عند تعطلها.',
-    'services.repair.details': 'خدمة الإصلاح الطارئة لدينا متاحة على مدار 24 ساعة طوال أيام الأسبوع. يمكن لفنيينا ذوي الخبرة تشخيص وإصلاح المشكلات سريعًا مع جميع العلامات التجارية والموديلات الرئيسية لأنظمة تكييف الهواء. نحتفظ بمخزون كامل من قطع الغيار لضمان الإصلاحات الفورية.',
-    'services.consultation': 'الاستشارة',
-    'services.consultation.desc': 'نصائح خبيرة حول اختيار حلول التبريد المناسبة لاحتياجاتك وميزانيتك المحددة.',
-    'services.consultation.details': 'تساعدك خدمات الاستشارات لدينا على اتخاذ قرارات مستنيرة بشأن احتياجات التدفئة والتهوية وتكييف الهواء. نحن نقيم مساحتك وأنماط الاستخدام والميزانية للتوصية بأكثر حلول التبريد كفاءة وفعالية من حيث التكلفة لمنزلك أو عملك.',
-    'services.sales': 'المبيعات',
-    'services.sales.desc': 'مجموعة واسعة من وحدات تكييف الهواء عالية الجودة والمكونات بأسعار تنافسية.',
-    'services.sales.details': 'نقدم مجموعة شاملة من أنظمة تكييف الهواء الموفرة للطاقة من الشركات المصنعة الرائدة. يمكن لفريق المبيعات لدينا مساعدتك في اختيار الوحدة المثالية بناءً على متطلبات التبريد وقيود المساحة واعتبارات الميزانية.',
-    'services.warranty': 'الضمان',
-    'services.warranty.desc': 'تغطية ضمان شاملة على جميع تركيباتنا ومنتجاتنا لراحة بالك.',
-    'services.warranty.details': 'تأتي جميع تركيباتنا مع تغطية ضمان واسعة. نحن نحترم أيضًا ضمانات الشركة المصنعة ونقدم خيارات الضمان الممتدة لمزيد من راحة البال. توفر اتفاقيات الخدمة لدينا جدولة ذات أولوية وأسعارًا مخفضة على الصيانة والإصلاحات.',
-    'services.learnMore': 'اعرف المزيد',
-    'services.viewProducts': 'عرض منتجاتنا',
-    'services.viewDetails': 'عرض التفاصيل',
-    'services.close': 'إغلاق',
-    
-    // Products Section
-    'products.title': 'منتجاتنا',
-    'products.subtitle': 'استكشف مجموعتنا من أنظمة تكييف الهواء عالية الجودة للاستخدام السكني والتجاري.',
-    'products.viewDetails': 'عرض التفاصيل',
-    'products.loading': 'جاري تحميل المنتجات...',
-    'products.error': 'خطأ في تحميل المنتجات. يرجى المحاولة مرة أخرى لاحقًا.',
-    'products.section1': 'مكيفات الهواء المنفصلة',
-    'products.section2': 'تكييف الهواء المركزي',
-    'products.section3': 'مكيفات الهواء المحمولة',
-    'products.section4': 'نماذج موفرة للطاقة',
-    'products.section': 'القسم {number}',
-    
-    // About Us Section
-    'about.title': 'من نحن',
-    'about.subtitle': 'تعرف على شركتنا والتزامنا بالخدمة الجيدة.',
-    'about.experience': 'سنوات الخبرة',
-    'about.projects': 'المشاريع المنجزة',
-    'about.satisfaction': 'رضا العملاء',
-    'about.service': 'الخدمة',
-    
-    // Contact Section
-    'contact.title': 'اتصل بنا',
-    'contact.subtitle': 'تواصل مع فريقنا لأي استفسارات أو لتحديد موعد خدمة.',
-    'contact.name': 'الاسم الكامل',
-    'contact.phone': 'رقم الهاتف',
-    'contact.message': 'الرسالة',
-    'contact.placeholder.name': 'أدخل اسمك',
-    'contact.placeholder.phone': 'أدخل رقم هاتفك',
-    'contact.placeholder.message': 'أخبرنا عن احتياجاتك من تكييف الهواء',
-    'contact.send': 'إرسال الرسالة',
-    'contact.sending': 'جاري الإرسال...',
-    'contact.getInTouch': 'تواصل معنا',
-    'contact.phoneLabel': 'الهاتف',
-    'contact.email': 'البريد الإلكتروني',
-    'contact.address': 'العنوان',
-    'contact.businessHours': 'ساعات العمل',
-    'contact.weekdays': 'الإثنين - الجمعة:',
-    'contact.weekdaysHours': '8:00 صباحًا - 6:00 مساءً',
-    'contact.saturday': 'السبت:',
-    'contact.saturdayHours': '9:00 صباحًا - 4:00 مساءً',
-    'contact.sunday': 'الأحد:',
-    'contact.sundayHours': 'مغلق',
-  }
-};
+// Create the context with default values
+const LanguageContext = createContext<LanguageContextValue>({
+  language: 'en',
+  changeLanguage: () => {},
+  t: (key) => key,
+});
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+// Custom hook to use the language context
+export const useLanguage = () => useContext(LanguageContext);
 
-export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  // Set default language to Arabic
-  const [language, setLanguage] = useState<Language>('ar');
+// Provider component
+export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [language, setLanguage] = useState<Language>(() => {
+    const savedLanguage = localStorage.getItem('language') as Language;
+    return savedLanguage || 'en';
+  });
 
-  const t = (key: string): string => {
-    return translations[language][key as keyof typeof translations[typeof language]] || key;
-  };
+  const changeLanguage = useCallback((lang: Language) => {
+    setLanguage(lang);
+    localStorage.setItem('language', lang);
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
+  }, []);
+
+  const t = useCallback(
+    (key: string): string => {
+      return translations[language][key as keyof typeof translations[typeof language]] || key;
+    },
+    [language]
+  );
+
+  const value = { language, changeLanguage, t };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
-      <div dir={language === 'ar' ? 'rtl' : 'ltr'} className="min-h-screen">
-        {children}
-      </div>
+    <LanguageContext.Provider value={value}>
+      {children}
     </LanguageContext.Provider>
   );
-};
-
-export const useLanguage = () => {
-  const context = useContext(LanguageContext);
-  if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
-  return context;
 };
