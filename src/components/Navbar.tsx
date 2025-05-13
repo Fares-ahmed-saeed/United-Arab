@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { smoothScroll } from '@/utils/scrollUtils';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, Calculator } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -106,6 +106,21 @@ const Navbar = () => {
           } hover:text-brand-blue font-medium transition-colors`}
         >
           {t('nav.products')}
+        </Link>
+      )
+    },
+    {
+      key: 'calculator',
+      label: t('nav.calculator') || 'AC Calculator',
+      render: () => (
+        <Link
+          to="/ac-calculator"
+          className={`${
+            isScrolled ? 'text-gray-800' : 'text-white'
+          } hover:text-brand-blue font-medium transition-colors flex items-center gap-1`}
+        >
+          <Calculator size={16} />
+          {t('nav.calculator') || 'AC Calculator'}
         </Link>
       )
     },
