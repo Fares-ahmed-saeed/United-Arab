@@ -15,12 +15,12 @@ import { toast } from "@/hooks/use-toast";
 
 // Form schema
 const formSchema = z.object({
-  roomLength: z.string().min(1, { message: "Room length is required" }).transform(Number),
-  roomWidth: z.string().min(1, { message: "Room width is required" }).transform(Number),
-  ceilingHeight: z.string().min(1, { message: "Ceiling height is required" }).transform(Number),
+  roomLength: z.coerce.number().min(0.1, { message: "Room length must be greater than 0" }),
+  roomWidth: z.coerce.number().min(0.1, { message: "Room width must be greater than 0" }),
+  ceilingHeight: z.coerce.number().min(0.1, { message: "Ceiling height must be greater than 0" }),
   roomType: z.enum(["bedroom", "living", "kitchen", "office"]),
   sunExposure: z.enum(["low", "medium", "high"]),
-  peopleCount: z.string().min(1, { message: "Number of people is required" }).transform(Number),
+  peopleCount: z.coerce.number().min(1, { message: "At least 1 person is required" }),
   insulation: z.enum(["poor", "average", "good"]),
 });
 
