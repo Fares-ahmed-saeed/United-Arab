@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+
 @layer base {
   :root {
     --background: 210 40% 98%;
@@ -83,6 +85,38 @@
   section {
     @apply py-16 md:py-24;
   }
+  
+  /* Arabic font settings */
+  html[lang="ar"] {
+    font-family: 'Tajawal', sans-serif;
+  }
+  
+  /* RTL specific adjustments */
+  [dir="rtl"] {
+    font-family: 'Tajawal', sans-serif;
+  }
+  
+  .font-arabic {
+    font-family: 'Tajawal', sans-serif;
+  }
+}
+
+/* Custom glass morphism effect */
+.glass-card {
+  @apply bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 hover:border-white/30 transition-all;
+}
+
+/* Harmonious gradient backgrounds */
+.bg-primary-gradient {
+  @apply bg-gradient-to-r from-purple-600 to-blue-500;
+}
+
+.bg-secondary-gradient {
+  @apply bg-gradient-to-r from-cyan-500 to-indigo-500;
+}
+
+.bg-accent-gradient {
+  @apply bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500;
 }
 
 /* Basic reveal animation */
@@ -168,4 +202,33 @@
 .lang-fade-exit-active {
   opacity: 0;
   transition: opacity 300ms;
+}
+
+/* Arabic specific adjustments */
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+[dir="rtl"] .mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+/* Better Arabic typography */
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+[dir="rtl"] p {
+  line-height: 1.8;
 }

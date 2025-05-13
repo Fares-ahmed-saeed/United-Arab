@@ -6,8 +6,11 @@ import ServicesSection from '@/components/ServicesSection';
 import WhyChooseUsSection from '@/components/WhyChooseUsSection';
 import ContactSection from '@/components/ContactSection';
 import { initScrollAnimations } from '@/utils/scrollUtils';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Index = () => {
+  const { language } = useLanguage();
+  
   // Initialize scroll animations when the component mounts
   useEffect(() => {
     const cleanup = initScrollAnimations();
@@ -16,8 +19,14 @@ const Index = () => {
     };
   }, []);
 
+  // Add RTL direction for Arabic language
+  useEffect(() => {
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = language;
+  }, [language]);
+
   return (
-    <div className="min-h-screen">
+    <div className={`min-h-screen ${language === 'ar' ? 'font-arabic' : ''}`}>
       <Navbar />
       <HeroSection />
       <ServicesSection />

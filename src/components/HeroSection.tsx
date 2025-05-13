@@ -53,12 +53,12 @@ const HeroSection = () => {
         >
           <source src="https://cdn.coverr.co/videos/coverr-air-conditioning-system-2602/1080p.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/60 via-blue-900/60 to-cyan-900/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/60 via-blue-800/60 to-cyan-700/60"></div>
       </div>
       
       <div className="container mx-auto px-4 text-center z-10">
         <div className="float-animation">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-violet-400 to-purple-500 bg-clip-text text-transparent animate-pulse-glow">
+          <h1 className={`text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r ${language === 'ar' ? 'from-cyan-400 to-purple-500' : 'from-cyan-400 via-violet-400 to-purple-500'} bg-clip-text text-transparent animate-pulse-glow`}>
             {t('hero.title')}
           </h1>
         </div>
@@ -94,25 +94,25 @@ const HeroSection = () => {
         <div className="mt-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
             <div className="fade-slide" style={{ transitionDelay: '0.6s' }}>
-              <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:shadow-lg hover:border-white/30 transition-all hover:scale-105">
+              <div className="bg-gradient-to-br from-purple-600/30 to-blue-600/20 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:shadow-lg hover:border-white/30 transition-all hover:scale-105">
                 <h3 className="text-white text-2xl font-bold">10+</h3>
                 <p className="text-white/80">{t('hero.experience')}</p>
               </div>
             </div>
             <div className="fade-slide" style={{ transitionDelay: '0.8s' }}>
-              <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:shadow-lg hover:border-white/30 transition-all hover:scale-105">
+              <div className="bg-gradient-to-br from-purple-600/30 to-blue-600/20 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:shadow-lg hover:border-white/30 transition-all hover:scale-105">
                 <h3 className="text-white text-2xl font-bold">500+</h3>
                 <p className="text-white/80">{t('hero.projects')}</p>
               </div>
             </div>
             <div className="fade-slide" style={{ transitionDelay: '1.0s' }}>
-              <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:shadow-lg hover:border-white/30 transition-all hover:scale-105">
+              <div className="bg-gradient-to-br from-purple-600/30 to-blue-600/20 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:shadow-lg hover:border-white/30 transition-all hover:scale-105">
                 <h3 className="text-white text-2xl font-bold">24/7</h3>
                 <p className="text-white/80">{t('hero.support')}</p>
               </div>
             </div>
             <div className="fade-slide" style={{ transitionDelay: '1.2s' }}>
-              <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:shadow-lg hover:border-white/30 transition-all hover:scale-105">
+              <div className="bg-gradient-to-br from-purple-600/30 to-blue-600/20 backdrop-blur-sm p-4 rounded-lg border border-white/20 hover:shadow-lg hover:border-white/30 transition-all hover:scale-105">
                 <h3 className="text-white text-2xl font-bold">100%</h3>
                 <p className="text-white/80">{t('hero.satisfaction')}</p>
               </div>
