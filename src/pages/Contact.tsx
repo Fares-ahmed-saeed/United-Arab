@@ -1,7 +1,6 @@
 
 import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import ContactSection from '@/components/ContactSection';
 import { initScrollAnimations } from '@/utils/scrollUtils';
 
@@ -20,7 +19,6 @@ const Contact = () => {
       <div className="pt-16 lg:pt-20">
         <ContactSection />
       </div>
-      <Footer />
     </div>
   );
 };

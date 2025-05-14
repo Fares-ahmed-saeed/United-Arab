@@ -1,7 +1,6 @@
 
 import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import { initScrollAnimations } from '@/utils/scrollUtils';
 import ProductsSection from '@/components/ProductsSection';
 
@@ -20,7 +19,6 @@ const Products = () => {
       <div className="pt-16 lg:pt-20">
         <ProductsSection />
       </div>
-      <Footer />
     </div>
   );
 };
