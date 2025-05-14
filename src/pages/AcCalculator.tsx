@@ -30,7 +30,7 @@ const formSchema = z.object({
 type CalculatorFormValues = z.infer<typeof formSchema>;
 
 const AcCalculator = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [btuResult, setBtuResult] = useState<number | null>(null);
   const [acSize, setAcSize] = useState<string>("");
 
@@ -76,7 +76,7 @@ const AcCalculator = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`min-h-screen flex flex-col ${language === 'ar' ? 'text-right' : 'text-left'}`}>
       <Navbar />
       <div className="flex-grow py-20 px-4 bg-gray-50">
         <div className="container mx-auto max-w-4xl">
@@ -84,9 +84,6 @@ const AcCalculator = () => {
             <h1 className="text-4xl font-bold text-brand-blue mb-4">
               {t("acCalculator.title")}
             </h1>
-            <p className="text-lg text-gray-600">
-              {t("acCalculator.description")}
-            </p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -97,9 +94,6 @@ const AcCalculator = () => {
                     <Calculator className="text-brand-blue" />
                     {t("acCalculator.formTitle")}
                   </CardTitle>
-                  <CardDescription>
-                    {t("acCalculator.formDescription")}
-                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Form {...form}>
@@ -202,9 +196,6 @@ const AcCalculator = () => {
                       <div className="text-lg font-medium text-gray-700 mb-6">
                         {acSize}
                       </div>
-                      <p className="text-sm text-gray-500">
-                        {t("acCalculator.recommendation")}
-                      </p>
                     </div>
                   ) : (
                     <div className="text-center text-gray-500">
@@ -226,24 +217,11 @@ const AcCalculator = () => {
             <Card>
               <CardHeader>
                 <CardTitle>
-                  {t("acCalculator.infoTitle")}
+                  {t("acCalculator.whatIsBTU")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="mb-4">
-                  {t("acCalculator.infoParagraph1")}
-                </p>
-                <p className="mb-4">
-                  {t("acCalculator.infoParagraph2")}
-                </p>
-                <p className="mb-6">
-                  {t("acCalculator.infoParagraph3")}
-                </p>
-                
                 <div className="bg-blue-50 p-5 rounded-lg border border-blue-100">
-                  <h3 className="text-xl font-bold text-brand-blue mb-3">
-                    {t("acCalculator.whatIsBTU")}
-                  </h3>
                   <p className="mb-3">
                     {t("acCalculator.btuExplanation1")}
                   </p>
