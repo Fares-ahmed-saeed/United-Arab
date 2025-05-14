@@ -8,7 +8,6 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import NotFound from "./pages/NotFound";
-import AcCalculator from "./pages/AcCalculator";
 
 const queryClient = new QueryClient();
 
@@ -22,7 +21,6 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/ac-calculator" element={<AcCalculator />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
