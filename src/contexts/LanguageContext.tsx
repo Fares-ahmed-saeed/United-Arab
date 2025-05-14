@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 type Language = 'en' | 'ar';
@@ -91,12 +90,13 @@ const translations = {
     'contact.email': 'Email',
     'contact.address': 'Address',
     'contact.businessHours': 'Business Hours',
-    'contact.weekdays': 'Monday - Friday:',
-    'contact.weekdaysHours': '8:00 AM - 6:00 PM',
-    'contact.saturday': 'Saturday:',
-    'contact.saturdayHours': '9:00 AM - 4:00 PM',
-    'contact.sunday': 'Sunday:',
-    'contact.sundayHours': 'Closed',
+    'contact.daily': 'Daily:',
+    'contact.dailyHours': '8:00 AM - 6:00 PM',
+    'contact.messageSent': 'Message Sent',
+    'contact.replyPromise': 'We will get back to you as soon as possible.',
+    'contact.error': 'Error',
+    'contact.errorMessage': 'There was a problem sending your message. Please try again.',
+    'contact.reachUs': 'Reach Out To Us',
   },
   ar: {
     // Navigation
@@ -179,12 +179,13 @@ const translations = {
     'contact.email': 'البريد الإلكتروني',
     'contact.address': 'العنوان',
     'contact.businessHours': 'ساعات العمل',
-    'contact.weekdays': 'الإثنين - الجمعة:',
-    'contact.weekdaysHours': '8:00 صباحًا - 6:00 مساءً',
-    'contact.saturday': 'السبت:',
-    'contact.saturdayHours': '9:00 صباحًا - 4:00 مساءً',
-    'contact.sunday': 'الأحد:',
-    'contact.sundayHours': 'مغلق',
+    'contact.daily': 'يوميًا:',
+    'contact.dailyHours': '8:00 صباحًا - 6:00 مساءً',
+    'contact.messageSent': 'تم إرسال الرسالة',
+    'contact.replyPromise': 'سنرد عليك في أقرب وقت ممكن.',
+    'contact.error': 'خطأ',
+    'contact.errorMessage': 'حدثت مشكلة أثناء إرسال رسالتك. يرجى المحاولة مرة أخرى.',
+    'contact.reachUs': 'تواصل معنا',
   }
 };
 
