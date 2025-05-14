@@ -6,7 +6,6 @@ import * as z from "zod";
 import { Thermometer, Calculator, AirVent } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { 
   Form, 
@@ -237,15 +236,29 @@ const AcCalculator = () => {
                 <p className="mb-4">
                   {t("acCalculator.infoParagraph2")}
                 </p>
-                <p>
+                <p className="mb-6">
                   {t("acCalculator.infoParagraph3")}
                 </p>
+                
+                <div className="bg-blue-50 p-5 rounded-lg border border-blue-100">
+                  <h3 className="text-xl font-bold text-brand-blue mb-3">
+                    {t("acCalculator.whatIsBTU")}
+                  </h3>
+                  <p className="mb-3">
+                    {t("acCalculator.btuExplanation1")}
+                  </p>
+                  <p className="mb-3">
+                    {t("acCalculator.btuExplanation2")}
+                  </p>
+                  <p>
+                    {t("acCalculator.btuExplanation3")}
+                  </p>
+                </div>
               </CardContent>
             </Card>
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
