@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,23 +25,45 @@ const ContactSection = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Create a mailto URL with the form data
+      const subject = encodeURIComponent(`New Contact Message from ${formData.name}`);
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\nPhone: ${formData.phone}\n\nMessage: ${formData.message}`
+      );
+      
+      // Create and click a hidden link to open the default email client
+      const mailtoLink = document.createElement('a');
+      mailtoLink.href = `mailto:saeedahmee222@gmail.com?subject=${subject}&body=${body}`;
+      mailtoLink.style.display = 'none';
+      document.body.appendChild(mailtoLink);
+      mailtoLink.click();
+      document.body.removeChild(mailtoLink);
+      
       toast({
         title: t('contact.messageSent'),
         description: t('contact.replyPromise'),
       });
+      
       setFormData({
         name: '',
         phone: '',
         message: ''
       });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: t('contact.error'),
+        description: t('contact.errorMessage'),
+        variant: 'destructive',
+      });
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   const isRTL = language === 'ar';
@@ -201,12 +222,8 @@ const ContactSection = () => {
                 <div className="mt-8 pt-6 border-t border-blue-100">
                   <h4 className="font-medium text-gray-900 mb-4">{t('contact.businessHours')}</h4>
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="text-gray-600 font-medium">{t('contact.weekdays')}</div>
-                    <div className="text-gray-900 font-medium">{t('contact.weekdaysHours')}</div>
-                    <div className="text-gray-600">{t('contact.saturday')}</div>
-                    <div className="text-gray-900 font-medium">{t('contact.saturdayHours')}</div>
-                    <div className="text-gray-600">{t('contact.sunday')}</div>
-                    <div className="text-gray-900 font-medium">{t('contact.sundayHours')}</div>
+                    <div className="text-gray-600 font-medium">{t('contact.daily')}</div>
+                    <div className="text-gray-900 font-medium">{t('contact.dailyHours')}</div>
                   </div>
                 </div>
               </div>
@@ -219,4 +236,3 @@ const ContactSection = () => {
 };
 
 export default ContactSection;
-
