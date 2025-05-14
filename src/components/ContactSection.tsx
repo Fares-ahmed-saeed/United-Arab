@@ -172,8 +172,8 @@ const ContactSection = () => {
                     </div>
                     <div className={isRTL ? "text-right" : ""}>
                       <h4 className="font-medium text-gray-900">{t('contact.phone')}</h4>
-                      <p className="text-gray-600 hover:text-brand-blue transition-colors">+123-456-7890</p>
-                      <p className="text-gray-600 hover:text-brand-blue transition-colors">+123-456-7891</p>
+                      <p className="text-gray-600 hover:text-brand-blue transition-colors">01155331256</p>
+                      <p className="text-gray-600 hover:text-brand-blue transition-colors">01271408891</p>
                     </div>
                   </div>
                   
@@ -183,8 +183,7 @@ const ContactSection = () => {
                     </div>
                     <div className={isRTL ? "text-right" : ""}>
                       <h4 className="font-medium text-gray-900">{t('contact.email')}</h4>
-                      <p className="text-gray-600 hover:text-brand-blue transition-colors">info@arabunitedac.com</p>
-                      <p className="text-gray-600 hover:text-brand-blue transition-colors">support@arabunitedac.com</p>
+                      <p className="text-gray-600 hover:text-brand-blue transition-colors">saeedahmee222@gmail.com</p>
                     </div>
                   </div>
                   
@@ -194,8 +193,7 @@ const ContactSection = () => {
                     </div>
                     <div className={isRTL ? "text-right" : ""}>
                       <h4 className="font-medium text-gray-900">{t('contact.address')}</h4>
-                      <p className="text-gray-600">123 Business Avenue, Suite 100</p>
-                      <p className="text-gray-600">Dubai, United Arab Emirates</p>
+                      <p className="text-gray-600">الباجور المنوفية</p>
                     </div>
                   </div>
                 </div>
@@ -221,3 +219,4 @@ const ContactSection = () => {
 };
 
 export default ContactSection;
+
