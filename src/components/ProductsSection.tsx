@@ -5,284 +5,271 @@ import { useQuery } from '@tanstack/react-query';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Separator } from '@/components/ui/separator';
 import { useNavigate } from 'react-router-dom';
-import { Eye } from 'lucide-react'; // Changed from Eye3d to Eye
+import { Eye } from 'lucide-react';
 
-// Sample air conditioner products for each section with Arabic translations
 const sampleProducts = {
   section1: [
     {
       id: 1,
       name: {
-        en: "Split AC Model S-101",
-        ar: "مكيف سبليت موديل S-101"
+        en: "Carrier Split AC 1.5HP Cooling",
+        ar: "مكيف كارير سبليت 1.5 حصان بارد"
       },
       description: {
-        en: "Energy efficient split air conditioner for small rooms",
-        ar: "مكيف هواء سبليت موفر للطاقة للغرف الصغيرة"
+        en: "High-efficiency 1.5HP cooling split AC for small rooms",
+        ar: "مكيف سبليت كارير 1.5 حصان بارد عالي الكفاءة للغرف الصغيرة"
       },
       features: {
-        en: ["18,000 BTU", "Energy Star Rated", "Sleep Mode", "Remote Control"],
-        ar: ["18,000 وحدة حرارية", "معتمد من Energy Star", "وضع السكون", "تحكم عن بعد"]
+        en: ["12,000 BTU", "Energy Saving Mode", "Turbo Cooling", "Quiet Operation"],
+        ar: ["12,000 وحدة حرارية", "وضع توفير الطاقة", "تبريد توربو", "تشغيل هادئ"]
       },
-      image: "https://images.unsplash.com/photo-1628913296855-8757c622af62?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+      image: "https://img.freepik.com/free-photo/air-conditioner-mounted-white-wall_53876-128235.jpg?ga=GA1.1.1450872929.1739217714&semt=ais_hybrid&w=740"
     },
     {
       id: 2,
       name: {
-        en: "Split AC Model S-202",
-        ar: "مكيف سبليت موديل S-202"
+        en: "Carrier Split AC 1.5HP Hot/Cold",
+        ar: "مكيف كارير سبليت 1.5 حصان ساخن/بارد"
       },
       description: {
-        en: "Powerful cooling for medium-sized rooms with air purifier",
-        ar: "تبريد قوي للغرف متوسطة الحجم مع منقي هواء"
+        en: "Versatile 1.5HP split AC with heating and cooling for all seasons",
+        ar: "مكيف كارير سبليت 1.5 حصان ساخن/بارد متعدد الاستخدامات لجميع الفصول"
       },
       features: {
-        en: ["24,000 BTU", "HEPA Filter", "Smart Control", "Low Noise"],
-        ar: ["24,000 وحدة حرارية", "فلتر HEPA", "تحكم ذكي", "ضوضاء منخفضة"]
+        en: ["12,000 BTU", "Heat Pump", "Smart Control", "Anti-Dust Filter"],
+        ar: ["12,000 وحدة حرارية", "مضخة حرارية", "تحكم ذكي", "فلتر مضاد للغبار"]
       },
-      image: "https://images.unsplash.com/photo-1600520611035-84157ad4494d?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+      image: "https://pakref.com/wp-content/uploads/2021/09/gree-18fith2w-1024x1024.jpg"
     },
     {
       id: 3,
       name: {
-        en: "Split AC Model S-303",
-        ar: "مكيف سبليت موديل S-303"
+        en: "Carrier Split AC 2.25HP Cooling",
+        ar: "مكيف كارير سبليت 2.25 حصان بارد"
       },
       description: {
-        en: "Premium inverter split AC for large living rooms",
-        ar: "مكيف سبليت انفرتر ممتاز لغرف المعيشة الكبيرة"
+        en: "Powerful 2.25HP cooling split AC for larger spaces",
+        ar: "مكيف كارير سبليت 2.25 حصان بارد قوي للمساحات الكبيرة"
       },
       features: {
-        en: ["30,000 BTU", "Inverter Technology", "WiFi Control", "4-Way Air Flow"],
-        ar: ["30,000 وحدة حرارية", "تقنية انفرتر", "تحكم عبر WiFi", "تدفق الهواء 4 اتجاهات"]
+        en: ["18,000 BTU", "Inverter Technology", "Fast Cooling", "WiFi Control"],
+        ar: ["18,000 وحدة حرارية", "تقنية انفرتر", "تبريد سريع", "تحكم عبر WiFi"]
       },
-      image: "https://images.unsplash.com/photo-1581275233124-a1d92edd66a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+      image: "https://img.freepik.com/premium-photo/white-air-conditioner-lifelike-background_899449-262542.jpg?ga=GA1.1.1450872929.1739217714&semt=ais_hybrid&w=740"
     },
     {
       id: 4,
       name: {
-        en: "Split AC Model S-404",
-        ar: "مكيف سبليت موديل S-404"
+        en: "Carrier Split AC 2.25HP Hot/Cold",
+        ar: "مكيف كارير سبليت 2.25 حصان ساخن/بارد"
       },
       description: {
-        en: "Ultra silent split AC with advanced filtration system",
-        ar: "مكيف سبليت فائق الهدوء مع نظام ترشيح متقدم"
+        en: "Premium 2.25HP split AC with advanced heating and cooling",
+        ar: "مكيف كارير سبليت 2.25 حصان ساخن/بارد بتقنية متقدمة"
       },
       features: {
-        en: ["24,000 BTU", "20dB Silent Mode", "Anti-bacterial Filter", "Motion Sensor"],
-        ar: ["24,000 وحدة حرارية", "وضع صامت 20 ديسيبل", "فلتر مضاد للبكتيريا", "مستشعر حركة"]
+        en: ["18,000 BTU", "Dual Inverter", "Eco Mode", "4-Way Air Flow"],
+        ar: ["18,000 وحدة حرارية", "انفرتر مزدوج", "وضع إيكو", "تدفق هواء رباعي"]
       },
-      image: "https://cdn.pixabay.com/photo/2017/08/24/03/41/air-conditioner-2675559_960_720.jpg"
+      image: "https://img.freepik.com/free-photo/air-conditioner-mounted-white-wall_53876-142861.jpg?ga=GA1.1.1450872929.1739217714&semt=ais_hybrid&w=740"
     }
   ],
   section2: [
     {
       id: 5,
       name: {
-        en: "Central AC System C-100",
-        ar: "نظام تكييف مركزي C-100"
+        en: "Midea Split AC 1.5HP Cooling",
+        ar: "مكيف ميديا سبليت 1.5 حصان بارد"
       },
       description: {
-        en: "Whole-house cooling solution with zoning capabilities",
-        ar: "حل تبريد للمنزل بالكامل مع إمكانيات تقسيم المناطق"
+        en: "Compact 1.5HP cooling split AC with modern design",
+        ar: "مكيف ميديا سبليت 1.5 حصان بارد بتصميم عصري"
       },
-      price: "$2,499",
       features: {
-        en: ["60,000 BTU", "Multi-zone Control", "High SEER Rating", "Smart Thermostat"],
-        ar: ["60,000 وحدة حرارية", "تحكم متعدد المناطق", "تصنيف SEER عالي", "منظم حرارة ذكي"]
+        en: ["12,000 BTU", "Low Noise Operation", "Smart Diagnosis", "Auto Clean"],
+        ar: ["12,000 وحدة حرارية", "تشغيل منخفض الضوضاء", "تشخيص ذكي", "تنظيف تلقائي"]
       },
-      image: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+      image: "https://img.freepik.com/premium-photo/air-conditioner-isolated-white-surface_293060-36.jpg?ga=GA1.1.1450872929.1739217714&semt=ais_hybrid&w=740"
     },
     {
       id: 6,
       name: {
-        en: "Central AC System C-200",
-        ar: "نظام تكييف مركزي C-200"
+        en: "Midea Split AC 1.5HP Hot/Cold",
+        ar: "مكيف ميديا سبليت 1.5 حصان ساخن/بارد"
       },
       description: {
-        en: "Advanced ducted system with humidity control",
-        ar: "نظام مجاري متقدم مع التحكم في الرطوبة"
+        en: "Efficient 1.5HP hot/cold split AC for year-round comfort",
+        ar: "مكيف ميديا سبليت 1.5 حصان ساخن/بارد لراحة طوال العام"
       },
-      price: "$3,299",
       features: {
-        en: ["72,000 BTU", "Humidity Control", "HEPA Filtration", "Quiet Operation"],
-        ar: ["72,000 وحدة حرارية", "التحكم في الرطوبة", "ترشيح HEPA", "تشغيل هادئ"]
+        en: ["12,000 BTU", "Heating Function", "Sleep Mode", "Air Purifier"],
+        ar: ["12,000 وحدة حرارية", "وظيفة التدفئة", "وضع النوم", "منقي الهواء"]
       },
-      image: "https://images.unsplash.com/photo-1504176910849-16a1790reporter.jpg?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+      image: "https://img.freepik.com/premium-psd/modern-white-wallmounted-air-conditioner-with-digital-temperature-display_878202-132.jpg?ga=GA1.1.1450872929.1739217714&semt=ais_hybrid&w=740"
     },
     {
       id: 7,
       name: {
-        en: "Central AC System C-300",
-        ar: "نظام تكييف مركزي C-300"
+        en: "Midea Split AC 2.25HP Cooling",
+        ar: "مكيف ميديا سبليت 2.25 حصان بارد"
       },
       description: {
-        en: "Commercial-grade central air conditioning with zone control",
-        ar: "تكييف هواء مركزي من الدرجة التجارية مع التحكم في المناطق"
+        en: "High-performance 2.25HP cooling split AC for medium rooms",
+        ar: "مكيف ميديا سبليت 2.25 حصان بارد عالي الأداء للغرف المتوسطة"
       },
-      price: "$4,199",
       features: {
-        en: ["120,000 BTU", "8-Zone Control", "Commercial Grade", "Energy Management"],
-        ar: ["120,000 وحدة حرارية", "تحكم 8 مناطق", "درجة تجارية", "إدارة الطاقة"]
+        en: ["18,000 BTU", "Inverter Compressor", "Rapid Cooling", "Remote Control"],
+        ar: ["18,000 وحدة حرارية", "ضاغط انفرتر", "تبريد سريع", "تحكم عن بعد"]
       },
-      image: "https://cdn.pixabay.com/photo/2016/11/23/15/04/air-conditioning-1853596_960_720.jpg"
+      image: "https://img.freepik.com/free-photo/air-conditioner-mounted-white-wall_53876-133368.jpg?ga=GA1.1.1450872929.1739217714&semt=ais_hybrid&w=740"
     },
     {
       id: 8,
       name: {
-        en: "Central AC System C-400",
-        ar: "نظام تكييف مركزي C-400"
+        en: "Midea Split AC 2.25HP Hot/Cold",
+        ar: "مكيف ميديا سبليت 2.25 حصان ساخن/بارد"
       },
       description: {
-        en: "High-efficiency central system with air purification",
-        ar: "نظام مركزي عالي الكفاءة مع تنقية الهواء"
+        en: "Advanced 2.25HP hot/cold split AC with smart features",
+        ar: "مكيف ميديا سبليت 2.25 حصان ساخن/بارد بميزات ذكية"
       },
-      price: "$3,799",
       features: {
-        en: ["90,000 BTU", "21 SEER Rating", "UV Air Purifier", "Variable Speed Fan"],
-        ar: ["90,000 وحدة حرارية", "تصنيف SEER 21", "منقي هواء بالأشعة فوق البنفسجية", "مروحة متغيرة السرعة"]
+        en: ["18,000 BTU", "WiFi Connectivity", "Eco-Friendly Refrigerant", "Silent Mode"],
+        ar: ["18,000 وحدة حرارية", "اتصال WiFi", "مبرد صديق للبيئة", "وضع هادئ"]
       },
-      image: "https://cdn.pixabay.com/photo/2020/04/28/01/42/ceiling-5102822_960_720.jpg"
+      image: "https://img.freepik.com/premium-photo/white-air-conditioner_1218049-14649.jpg?ga=GA1.1.1450872929.1739217714&semt=ais_hybrid&w=740"
     }
   ],
   section3: [
     {
       id: 9,
       name: {
-        en: "Portable AC Model P-100",
-        ar: "مكيف متنقل موديل P-100"
+        en: "Sharp Split AC 1.5HP Cooling",
+        ar: "مكيف شارب سبليت 1.5 حصان بارد"
       },
       description: {
-        en: "Compact portable air conditioner for small spaces",
-        ar: "مكيف هواء متنقل مدمج للمساحات الصغيرة"
+        en: "Reliable 1.5HP cooling split AC with Plasmacluster technology",
+        ar: "مكيف شارب سبليت 1.5 حصان بارد بتقنية بلازما كلاستر"
       },
-      price: "$349",
       features: {
-        en: ["10,000 BTU", "Easy Installation", "Remote Control", "Dehumidifier"],
-        ar: ["10,000 وحدة حرارية", "تركيب سهل", "تحكم عن بعد", "مزيل الرطوبة"]
+        en: ["12,000 BTU", "Plasmacluster Ion", "Energy Efficient", "Auto Restart"],
+        ar: ["12,000 وحدة حرارية", "بلازما كلاستر أيون", "موفر للطاقة", "إعادة تشغيل تلقائي"]
       },
-      image: "https://images.unsplash.com/photo-1599732494971-f8cef4b7ccce?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+      image: "https://img.freepik.com/free-photo/air-conditioner-mounted-white-wall_53876-128235.jpg?ga=GA1.1.1450872929.1739217714&semt=ais_hybrid&w=740"
     },
     {
       id: 10,
       name: {
-        en: "Portable AC Model P-200",
-        ar: "مكيف متنقل موديل P-200"
+        en: "Sharp Split AC 1.5HP Hot/Cold",
+        ar: "مكيف شارب سبليت 1.5 حصان ساخن/بارد"
       },
       description: {
-        en: "Mid-size portable unit with smart features",
-        ar: "وحدة متنقلة متوسطة الحجم مع ميزات ذكية"
+        en: "1.5HP hot/cold split AC with air purification",
+        ar: "مكيف شارب سبليت 1.5 حصان ساخن/بارد مع تنقية الهواء"
       },
-      price: "$449",
       features: {
-        en: ["12,000 BTU", "WiFi Control", "Programmable Timer", "Low Noise"],
-        ar: ["12,000 وحدة حرارية", "تحكم عبر WiFi", "مؤقت قابل للبرمجة", "ضوضاء منخفضة"]
+        en: ["12,000 BTU", "Plasmacluster Technology", "Heating Mode", "Low Noise"],
+        ar: ["12,000 وحدة حرارية", "تقنية بلازما كلاستر", "وضع التدفئة", "ضوضاء منخفضة"]
       },
-      image: "https://cdn.pixabay.com/photo/2020/05/07/13/05/air-conditioner-5140647_960_720.jpg"
+      image: "https://img.freepik.com/free-photo/air-conditioner-mounted-white-wall_53876-142862.jpg?ga=GA1.1.1450872929.1739217714&semt=ais_hybrid&w=740"
     },
     {
       id: 11,
       name: {
-        en: "Portable AC Model P-300",
-        ar: "مكيف متنقل موديل P-300"
+        en: "Sharp Split AC 2.25HP Cooling",
+        ar: "مكيف شارب سبليت 2.25 حصان بارد"
       },
       description: {
-        en: "High-capacity portable AC for larger rooms",
-        ar: "مكيف هواء متنقل بسعة عالية للغرف الأكبر"
+        en: "Powerful 2.25HP cooling split AC for large spaces",
+        ar: "مكيف شارب سبليت 2.25 حصان بارد للمساحات الكبيرة"
       },
-      price: "$549",
       features: {
-        en: ["14,000 BTU", "Three Cooling Speeds", "Auto-Evaporation", "Sleep Mode"],
-        ar: ["14,000 وحدة حرارية", "ثلاث سرعات تبريد", "تبخر تلقائي", "وضع النوم"]
+        en: ["18,000 BTU", "Inverter Technology", "Turbo Cool", "Self-Cleaning"],
+        ar: ["18,000 وحدة حرارية", "تقنية انفرتر", "تبريد توربو", "تنظيف ذاتي"]
       },
-      image: "https://cdn.pixabay.com/photo/2018/09/01/22/22/air-conditioner-3647998_960_720.jpg"
+      image: "https://img.freepik.com/premium-photo/air-conditioner-white_1218049-10807.jpg?ga=GA1.1.1450872929.1739217714&semt=ais_hybrid&w=740"
     },
     {
       id: 12,
       name: {
-        en: "Portable AC Model P-400",
-        ar: "مكيف متنقل موديل P-400"
+        en: "Sharp Split AC 2.25HP Hot/Cold",
+        ar: "مكيف شارب سبليت 2.25 حصان ساخن/بارد"
       },
       description: {
-        en: "Premium dual-hose portable air conditioner",
-        ar: "مكيف هواء متنقل مزدوج الخرطوم من الدرجة الممتازة"
+        en: "Premium 2.25HP hot/cold split AC with advanced purification",
+        ar: "مكيف شارب سبليت 2.25 حصان ساخن/بارد مع تنقية متقدمة"
       },
-      price: "$649",
       features: {
-        en: ["14,000 BTU", "Dual Hose Design", "Digital Control", "Heating Function"],
-        ar: ["14,000 وحدة حرارية", "تصميم مزدوج الخرطوم", "تحكم رقمي", "وظيفة التدفئة"]
+        en: ["18,000 BTU", "Plasmacluster Ion", "Smart Control", "Eco Mode"],
+        ar: ["18,000 وحدة حرارية", "بلازما كلاستر أيون", "تحكم ذكي", "وضع إيكو"]
       },
-      image: "https://cdn.pixabay.com/photo/2018/07/05/22/22/portable-air-conditioner-3519318_960_720.jpg"
+      image: "https://img.freepik.com/premium-photo/silver-ac-with-brown-stripe-it_1216335-175.jpg?ga=GA1.1.1450872929.1739217714&semt=ais_hybrid&w=740"
     }
   ],
   section4: [
     {
       id: 13,
       name: {
-        en: "Energy Saver Model E-100",
-        ar: "موديل موفر للطاقة E-100"
+        en: "Tornado Split AC 1.5HP Cooling",
+        ar: "مكيف تورنيدو سبليت 1.5 حصان بارد"
       },
       description: {
-        en: "Ultra-efficient inverter AC with lowest power consumption",
-        ar: "مكيف انفرتر فائق الكفاءة مع أقل استهلاك للطاقة"
+        en: "Affordable 1.5HP cooling split AC with robust performance",
+        ar: "مكيف تورنيدو سبليت 1.5 حصان بارد بأداء قوي وسعر مناسب"
       },
-      price: "$899",
       features: {
-        en: ["12,000 BTU", "28 SEER Rating", "Solar Compatible", "Eco Mode"],
-        ar: ["12,000 وحدة حرارية", "تصنيف SEER 28", "متوافق مع الطاقة الشمسية", "وضع توفير الطاقة"]
+        en: ["12,000 BTU", "Turbo Cooling", "Anti-Dust Filter", "Durable Design"],
+        ar: ["12,000 وحدة حرارية", "تبريد توربو", "فلتر مضاد للغبار", "تصميم متين"]
       },
-      image: "https://images.unsplash.com/photo-1543674892-8f7c7ce61394?ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+      image: "https://img.freepik.com/premium-photo/close-up-air-conditioner-isolated_241146-645.jpg?ga=GA1.1.1450872929.1739217714&semt=ais_hybrid&w=740"
     },
     {
       id: 14,
       name: {
-        en: "Energy Saver Model E-200",
-        ar: "موديل موفر للطاقة E-200"
+        en: "Tornado Split AC 1.5HP Hot/Cold",
+        ar: "مكيف تورنيدو سبليت 1.5 حصان ساخن/بارد"
       },
       description: {
-        en: "Smart eco-friendly split AC with consumption tracking",
-        ar: "مكيف سبليت صديق للبيئة ذكي مع تتبع الاستهلاك"
+        en: "Reliable 1.5HP hot/cold split AC for all-weather comfort",
+        ar: "مكيف تورنيدو سبليت 1.5 حصان ساخن/بارد لراحة في جميع الأحوال الجوية"
       },
-      price: "$1,099",
       features: {
-        en: ["18,000 BTU", "Energy Tracking App", "R-32 Refrigerant", "Load Sensing"],
-        ar: ["18,000 وحدة حرارية", "تطبيق تتبع الطاقة", "غاز تبريد R-32", "استشعار الحمل"]
+        en: ["12,000 BTU", "Heat Pump", "Auto Clean", "Remote Control"],
+        ar: ["12,000 وحدة حرارية", "مضخة حرارية", "تنظيف تلقائي", "تحكم عن بعد"]
       },
-      image: "https://cdn.pixabay.com/photo/2017/04/10/14/54/air-conditioning-2218756_960_720.jpg"
+      image: "https://plusair-sales.com/wp-content/uploads/2022/02/%D8%AA%D9%83%D9%8A%D9%8A%D9%81-%D8%AA%D9%88%D8%B1%D9%86%D9%8A%D8%AF%D9%88-%D8%B4%D8%B1%D9%83%D8%A9-%D8%A8%D9%84%D8%B3-%D8%A7%D9%8A%D8%B1-%D9%84%D9%84%D8%AA%D9%83%D9%8A%D9%8A%D9%81%D8%A7%D8%AA-01023069232-plusair-sales.com-.jpg"
     },
     {
       id: 15,
       name: {
-        en: "Energy Saver Model E-300",
-        ar: "موديل موفر للطاقة E-300"
+        en: "Tornado Split AC 2.25HP Cooling",
+        ar: "مكيف تورنيدو سبليت 2.25 حصان بارد"
       },
       description: {
-        en: "Premium efficiency central AC for whole-house cooling",
-        ar: "مكيف مركزي عالي الكفاءة لتبريد المنزل بالكامل"
+        en: "High-capacity 2.25HP cooling split AC for spacious rooms",
+        ar: "مكيف تورنيدو سبليت 2.25 حصان بارد للغرف الواسعة"
       },
-      price: "$2,899",
       features: {
-        en: ["48,000 BTU", "26 SEER Rating", "Variable Speed", "Smart Zoning"],
-        ar: ["48,000 وحدة حرارية", "تصنيف SEER 26", "سرعة متغيرة", "تقسيم مناطق ذكي"]
+        en: ["18,000 BTU", "Fast Cooling", "Energy Saving", "Low Noise"],
+        ar: ["18,000 وحدة حرارية", "تبريد سريع", "توفير الطاقة", "ضوضاء منخفضة"]
       },
-      image: "https://cdn.pixabay.com/photo/2017/08/01/09/34/air-conditioner-2563621_960_720.jpg"
+      image: "https://www.aldahome.com/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/n/a/napoleon-1.5-ton-indoor.jpg"
     },
     {
       id: 16,
       name: {
-        en: "Energy Saver Model E-400",
-        ar: "موديل موفر للطاقة E-400"
+        en: "Tornado Split AC 2.25HP Hot/Cold",
+        ar: "مكيف تورنيدو سبليت 2.25 حصان ساخن/بارد"
       },
       description: {
-        en: "Solar-assisted hybrid cooling system",
-        ar: "نظام تبريد هجين بمساعدة الطاقة الشمسية"
+        en: "Durable 2.25HP hot/cold split AC with modern features",
+        ar: "مكيف تورنيدو سبليت 2.25 حصان ساخن/بارد بميزات عصرية"
       },
-      price: "$3,499",
       features: {
-        en: ["36,000 BTU", "Solar Panel Integration", "Hybrid Technology", "Smart Grid Ready"],
-        ar: ["36,000 وحدة حرارية", "تكامل الألواح الشمسية", "تقنية هجينة", "جاهز للشبكة الذكية"]
+        en: ["18,000 BTU", "Inverter Technology", "Smart Control", "Anti-Bacterial Filter"],
+        ar: ["18,000 وحدة حرارية", "تقنية انفرتر", "تحكم ذكي", "فلتر مضاد للبكتيريا"]
       },
-      image: "https://cdn.pixabay.com/photo/2018/10/05/14/01/cooling-3726493_960_720.jpg"
+      image: "https://eg.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/16/107372/1.jpg?2228"
     }
   ]
 };
@@ -295,29 +282,26 @@ const ProductsSection = ({ onViewAR }: ProductsSectionProps) => {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
   
-  // Section titles with updated Arabic translations
   const sectionTitles = {
     en: [
-      'Split Air Conditioners',
-      'Central Air Conditioning',
-      'Portable Air Conditioners',
-      'Energy-Saving Models'
+      'Carrier Air Conditioners',
+      'Midea Air Conditioners',
+      'Sharp Air Conditioners',
+      'Tornado Air Conditioners'
     ],
     ar: [
       'مكيفات كارير',
-      'تكييفات ميديا',
-      'تكييفات شارب',
-      'تكييفات تورنيدو'
+      'مكيفات ميديا',
+      'مكيفات شارب',
+      'مكيفات تورنيدو'
     ]
   };
 
-  // AR View button translations
   const arViewText = {
     en: "View in AR",
     ar: "عرض بتقنية الواقع المعزز"
   };
 
-  // Navigate to contact page when View Details is clicked
   const handleViewDetails = () => {
     navigate('/contact');
   };
@@ -384,7 +368,7 @@ const ProductsSection = ({ onViewAR }: ProductsSectionProps) => {
                           language === 'ar' ? product.name.ar : product.name.en
                         )}
                       >
-                        <Eye className="mr-2 h-4 w-4" /> {/* Changed from Eye3d to Eye */}
+                        <Eye className="mr-2 h-4 w-4" />
                         {language === 'ar' ? arViewText.ar : arViewText.en}
                       </Button>
                     </CardFooter>

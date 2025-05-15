@@ -1,73 +1,76 @@
-# Welcome to your Lovable project
+<h1 align="center">❄️ المتحدة العربية التكييفات | Air Conditioning Company Website</h1>
 
-## Project info
+<p align="center">
+  موقع متكامل لشركة متخصصة في بيع وصيانة وتركيب أجهزة التكييف، يتميز بتصميم عصري، أداء عالي، وتجربة مستخدم متميزة.
+</p>
 
-**URL**: https://lovable.dev/projects/5ae7c324-32de-46cf-90ad-e31ef540f0c9
+---
 
-## How can I edit this code?
+## ✨ المميزات الرئيسية
 
-There are several ways of editing your application.
+- 🎯 **واجهة سهلة الاستخدام** وتصميم متجاوب يعمل بسلاسة على جميع الأجهزة.
+- 📦 **عرض تفصيلي للمنتجات** مع صور عالية الجودة، الأسعار، والمواصفات الفنية.
+- 🧰 **خدمة طلب التركيب والصيانة** مدمجة بنموذج تفاعلي.
 
-**Use Lovable**
+- 📬 **نموذج تواصل مباشر** مع إدارة الشركة أو فريق الدعم.
+- 🌍 دعم متعدد اللغات .
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5ae7c324-32de-46cf-90ad-e31ef540f0c9) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🚀 التقنيات المستخدمة
 
-**Use your preferred IDE**
+| المجال              | الأدوات والتقنيات                           |
+|----------------------|---------------------------------------------|
+| الهيكل العام (Frontend) | HTML5, CSS3, JavaScript, Bootstrap 5        |
+| تصميم متجاوب         | Media Queries, Flexbox, Grid                |
+| التفاعل والديناميكية | JavaScript Vanilla / jQuery *(اختياري)*     |                |
+| قواعد البيانات       | MySQL / MongoDB *(حسب المتطلبات)*           |
+| تحسين الأداء         | Lazy Loading, Image Optimization            |
+| SEO                  | Meta Tags, Structured Data, Sitemap         |
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 📁 هيكل المشروع
 
-Follow these steps:
+air-conditioning-website/
+│
+├── index.html 
+├── products.html 
+├── contact.html 
+├── service-request.html 
+├── css/
+│ └── style.css
+├── js/
+│ └── main.js 
+├── images/
+│ ├── logo.png
+│ └── products/
+│ └── ac-model1.png
+├── assets/
+│ └── fonts/
+│ └── icons/
+└── README.md
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 📸 صورة من الواجهة
 
-# Step 3: Install the necessary dependencies.
-npm i
+<p align="center">
+  <img src="img/Air-condition.png" alt="واجهة الموقع" width="600">
+</p>
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+---
 
-**Edit a file directly in GitHub**
+## 📞 بيانات التواصل
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+**شركة المتحدة للتكييفات**  
+📍 القاهرة - مصر  
+📧 saeedahmee222@gmail.com 
+📞 01155331256 
+🌐 [https://www.facebook.com/share/16GRGhggkS/]
 
-**Use GitHub Codespaces**
+---
+## 📝 الرخصة
+هذا المشروع مرخص تحت رخصة [MIT License](LICENSE)، ويمكن استخدامه أو تعديله بحرية مع الحفاظ على الحقوق.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/5ae7c324-32de-46cf-90ad-e31ef540f0c9) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+> Developed with passion by <b></b><span style="color:teal;">Fares Ahmed </span></b>

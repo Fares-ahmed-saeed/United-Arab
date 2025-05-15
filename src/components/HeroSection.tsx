@@ -22,11 +22,11 @@ const HeroSection = () => {
   // Adaptive air conditioner image selection based on screen width
   const getBgImage = () => {
     if (windowWidth <= 640) {
-      return "https://images.unsplash.com/photo-1624823183493-ed4f3065fc48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80";
+      return "https://sakrstore.com/wp-content/uploads/2025/01/IMG_3249.png";
     } else if (windowWidth <= 1024) {
-      return "https://images.unsplash.com/photo-1625419689908-61005180ca1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80";
+      return "https://sakrstore.com/wp-content/uploads/2025/01/IMG_3249.png";
     } else {
-      return "https://images.unsplash.com/photo-1656077217715-bdaeb06bd01f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80";
+      return "https://sakrstore.com/wp-content/uploads/2025/01/IMG_3249.png";
     }
   };
 

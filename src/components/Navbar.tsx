@@ -166,7 +166,7 @@ const Navbar = () => {
             {language === 'en' ? (
               <>United Arab <span className="hidden sm:inline">Air Conditioning</span></>
             ) : (
-              <>العربية المتحدة <span className="hidden sm:inline">لتكييف الهواء</span></>
+              <> المتحدة العربية للتكيفات<span className="hidden sm:inline"></span></>
             )}
           </h1>
         </Link>
