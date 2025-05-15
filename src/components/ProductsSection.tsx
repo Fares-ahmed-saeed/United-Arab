@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Separator } from '@/components/ui/separator';
 import { useNavigate } from 'react-router-dom';
+import { Eye3d } from 'lucide-react';
 
 // Sample air conditioner products for each section with Arabic translations
 const sampleProducts = {
@@ -287,7 +287,11 @@ const sampleProducts = {
   ]
 };
 
-const ProductsSection = () => {
+interface ProductsSectionProps {
+  onViewAR: (productImage: string, productName: string) => void;
+}
+
+const ProductsSection = ({ onViewAR }: ProductsSectionProps) => {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
   
@@ -305,6 +309,12 @@ const ProductsSection = () => {
       'تكييفات شارب',
       'تكييفات تورنيدو'
     ]
+  };
+
+  // AR View button translations
+  const arViewText = {
+    en: "View in AR",
+    ar: "عرض بتقنية الواقع المعزز"
   };
 
   // Navigate to contact page when View Details is clicked
@@ -359,12 +369,23 @@ const ProductsSection = () => {
                         ))}
                       </ul>
                     </CardContent>
-                    <CardFooter>
+                    <CardFooter className="flex flex-col space-y-2">
                       <Button 
                         className="w-full bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white"
                         onClick={handleViewDetails}
                       >
                         {t('products.viewDetails')}
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        className="w-full border-cyan-500 text-cyan-700 hover:bg-cyan-50"
+                        onClick={() => onViewAR(
+                          product.image, 
+                          language === 'ar' ? product.name.ar : product.name.en
+                        )}
+                      >
+                        <Eye3d className="mr-2 h-4 w-4" />
+                        {language === 'ar' ? arViewText.ar : arViewText.en}
                       </Button>
                     </CardFooter>
                   </Card>
