@@ -20,7 +20,6 @@ const sampleProducts = {
         en: "Energy efficient split air conditioner for small rooms",
         ar: "مكيف هواء سبليت موفر للطاقة للغرف الصغيرة"
       },
-      price: "$499",
       features: {
         en: ["18,000 BTU", "Energy Star Rated", "Sleep Mode", "Remote Control"],
         ar: ["18,000 وحدة حرارية", "معتمد من Energy Star", "وضع السكون", "تحكم عن بعد"]
@@ -37,7 +36,6 @@ const sampleProducts = {
         en: "Powerful cooling for medium-sized rooms with air purifier",
         ar: "تبريد قوي للغرف متوسطة الحجم مع منقي هواء"
       },
-      price: "$649",
       features: {
         en: ["24,000 BTU", "HEPA Filter", "Smart Control", "Low Noise"],
         ar: ["24,000 وحدة حرارية", "فلتر HEPA", "تحكم ذكي", "ضوضاء منخفضة"]
@@ -54,7 +52,6 @@ const sampleProducts = {
         en: "Premium inverter split AC for large living rooms",
         ar: "مكيف سبليت انفرتر ممتاز لغرف المعيشة الكبيرة"
       },
-      price: "$799",
       features: {
         en: ["30,000 BTU", "Inverter Technology", "WiFi Control", "4-Way Air Flow"],
         ar: ["30,000 وحدة حرارية", "تقنية انفرتر", "تحكم عبر WiFi", "تدفق الهواء 4 اتجاهات"]
@@ -71,7 +68,6 @@ const sampleProducts = {
         en: "Ultra silent split AC with advanced filtration system",
         ar: "مكيف سبليت فائق الهدوء مع نظام ترشيح متقدم"
       },
-      price: "$899",
       features: {
         en: ["24,000 BTU", "20dB Silent Mode", "Anti-bacterial Filter", "Motion Sensor"],
         ar: ["24,000 وحدة حرارية", "وضع صامت 20 ديسيبل", "فلتر مضاد للبكتيريا", "مستشعر حركة"]
@@ -295,13 +291,21 @@ const ProductsSection = () => {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
   
-  // Section titles
-  const sectionTitles = [
-    t('products.section1'),
-    t('products.section2'),
-    t('products.section3'),
-    t('products.section4')
-  ];
+  // Section titles with updated Arabic translations
+  const sectionTitles = {
+    en: [
+      'Split Air Conditioners',
+      'Central Air Conditioning',
+      'Portable Air Conditioners',
+      'Energy-Saving Models'
+    ],
+    ar: [
+      'مكيفات كارير',
+      'تكييفات ميديا',
+      'تكييفات شارب',
+      'تكييفات تورنيدو'
+    ]
+  };
 
   // Navigate to contact page when View Details is clicked
   const handleViewDetails = () => {
@@ -321,7 +325,9 @@ const ProductsSection = () => {
         
         {Object.keys(sampleProducts).map((sectionKey, sectionIndex) => (
           <div key={sectionKey} className="mb-16 last:mb-0">
-            <h3 className="text-2xl font-bold mb-6 text-gray-800 reveal">{sectionTitles[sectionIndex]}</h3>
+            <h3 className="text-2xl font-bold mb-6 text-gray-800 reveal">
+              {language === 'ar' ? sectionTitles.ar[sectionIndex] : sectionTitles.en[sectionIndex]}
+            </h3>
             
             <div 
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" 
@@ -352,7 +358,6 @@ const ProductsSection = () => {
                           <li key={i}>{feature}</li>
                         ))}
                       </ul>
-                      <p className="text-2xl font-bold bg-gradient-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent mt-4">{product.price}</p>
                     </CardContent>
                     <CardFooter>
                       <Button 
