@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Separator } from '@/components/ui/separator';
 import { useNavigate } from 'react-router-dom';
-import { Eye3d } from 'lucide-react';
+import { Eye } from 'lucide-react';
 
 // Sample air conditioner products for each section with Arabic translations
 const sampleProducts = {
@@ -384,7 +384,7 @@ const ProductsSection = ({ onViewAR }: ProductsSectionProps) => {
                           language === 'ar' ? product.name.ar : product.name.en
                         )}
                       >
-                        <Eye3d className="mr-2 h-4 w-4" />
+                        <Eye className="mr-2 h-4 w-4" />
                         {language === 'ar' ? arViewText.ar : arViewText.en}
                       </Button>
                     </CardFooter>
