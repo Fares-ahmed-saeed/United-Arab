@@ -1,6 +1,6 @@
 {
-  "name": "United-Arab-Air-Conditioning",
-  "homepage": "https://Fares-ahmed-saeed.github.io/United-Arab-Air-Conditioning/",
+  "name": "United-Arab-HVAC-Solutions",
+   "homepage": "https://Fares-ahmed-saeed.github.io/United-Arab-HVAC-Solutions/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -9,8 +9,8 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d dist"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
