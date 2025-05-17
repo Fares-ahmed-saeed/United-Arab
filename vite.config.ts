@@ -19,6 +19,6 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
- base:"/ArabTech-Cooling-Solutions/",
+ base:"/United-Desert-Cooling/",
 }));
  
