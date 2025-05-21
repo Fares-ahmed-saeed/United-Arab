@@ -222,8 +222,8 @@ const ContactSection = () => {
                 <div className="mt-8 pt-6 border-t border-blue-100">
                   <h4 className="font-medium text-gray-900 mb-4">{t('contact.businessHours')}</h4>
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="text-gray-600 font-medium">{t('contact.daily')}</div>
-                    <div className="text-gray-900 font-medium">{t('contact.dailyHours')}</div>
+                     <div className="text-gray-600 font-medium">يوميًا:</div>
+                     <div className="text-gray-900 font-medium">9:00 صباحًا - 11:00 مساءً</div>
                   </div>
                 </div>
               </div>
